@@ -1,0 +1,67 @@
+.RegiterImageCol{
+    background-color:#C9DBF3 ;
+}
+.RegiterImage{
+    padding-top: 25%;
+}
+.formside{
+    padding-left: 5%;
+    margin-top: 3%;
+    align-items: start !important;
+    text-align: left;
+    padding-right: 2%;
+    /* margin-right: 5%; */
+}
+.RegisterText{
+    display: flex;
+    justify-content: space-between !important;
+}
+.backbtn{
+    padding-top: 3% !important;
+}
+.grid-container {
+    display: inline-grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2rem;
+    width: 100%;
+  
+    @media only screen and (max-width: 425px) {
+      grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+  }
+  h5{
+    margin: 0%;
+  }
+  .formItem{
+    width: 100% !important;
+  }
+ .Xero,.Intuit{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis
+ }
+
+ @media only screen and (max-width: 768px) {
+  .RegiterImage{
+    padding-top: 5%;
+}
+}
+
+@media only screen and (max-width: 992px) {
+  .Xero,.Intuit{
+    margin-top: 2%;
+}
+}
+ 
+p {
+  margin-top: auto !important;
+  margin-bottom: 10% !important;
+  color: #286FD1;
+}
+.ant-form{
+  display: flex;
+  flex-direction: column;
+  height: 100% !important;
+}
+
+  
