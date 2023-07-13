@@ -5,7 +5,7 @@ import DynamicTable from "../../Components/settings/Table/index"
 import { MenuInfo } from 'rc-menu/lib/interface';
 import ConfirmDelete from "../../Components/golbal/DeleteConfirmationModal/index"
 import { Alert, Button, Card, Col, Drawer, Form, Input, Row, Space, Switch } from 'antd';
-import { CloseOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { CloseOutlined, DeleteOutlined, EditOutlined, OrderedListOutlined } from '@ant-design/icons';
 // import { AddUserDrawerBody } from '../../constants/AddUserDrawer';
 import AddUserForm from "../../Components/settings/AddUser/index"
 import AddORGForm from '../../Components/settings/AddOrganization/index'
@@ -18,6 +18,7 @@ import InterigrationData from '../../constants/InterigrationData'
 import "./index.css"
 import PreferenceCard from '../../Components/settings/preferenceCard/index'
 import preferencesData from '../../constants/PreferenceData'
+import rolesData from '../../constants/RolesData'
 
 
 export default function Index() {
@@ -25,6 +26,7 @@ export default function Index() {
   const [settingComponent, setSettingComponent] = useState('users');
   const [IsModalOpen, setIsModalOpen] = useState(false)
   const [OpenDrawer, setOpenDrawer] = useState(false)
+  const [permissionDrawer, setpermissionDrawer] = useState(false)
 
   const handleSidebar = (event: MenuInfo) => {
     console.log('Event: ', event.key);
@@ -53,6 +55,7 @@ export default function Index() {
     setIsModalOpen(false);
   };
   const onClose = () => {
+    setpermissionDrawer(false)
     setOpenDrawer(false)
   }
 
@@ -92,7 +95,7 @@ export default function Index() {
 
   const userColumns = [
     {
-      title: 'Organization Name',
+      title: 'Name',
       dataIndex: 'name',
       key: 'name',
       sorter: (a: any, b: any) => {
@@ -201,6 +204,60 @@ export default function Index() {
       }
     }
   ];
+  const RolesColumns = [
+    {
+      title: 'Role Name',
+      dataIndex: 'roleName',
+      key: 'roleName',
+      sorter: (a: any, b: any) => {
+        return a.roleName.length - b.roleName.length;
+      },
+      // sortDirections: ['descend'],
+    },
+    {
+      title: 'Discription',
+      dataIndex: 'discription',
+      key: 'discription',
+    },
+   
+    {
+      title: 'Status',
+      dataIndex: 'isActive',
+      key: 'isActive',
+      render: (isActive: any) => (
+        <>
+          {isActive === `Active` ? <Alert message="Active" type="success" showIcon /> : <Alert message="Invalid" type="error" showIcon />
+          }
+        </>
+
+      )
+    },
+    {
+      title: 'Permission',
+      dataIndex: 'permission',
+      key: 'permission',
+      render: (permission:string) => {
+        return (<Button style={{border:'none',color:'#0074FF'}} onClick={()=>{setOpenDrawer(true);setpermissionDrawer(true)}} ><OrderedListOutlined />{`  ${permission}`}</Button>)
+      }
+    },
+    {
+      title: "Action",
+      dataIndex: 'action',
+      key: 'action',
+      render: () => {
+        return <Space size={10}>
+          <EditOutlined
+            className="table-edit-icon"
+          // onClick={()=>{editDataHandler()}}
+          />
+          <DeleteOutlined
+            className="table-delete-icon"
+            onClick={showModal}
+          />
+        </Space>
+      }
+    }
+  ];
 
   return (
     <>
@@ -228,17 +285,17 @@ export default function Index() {
         {settingComponent === 'organizations' &&
           <DynamicTable
             userDataSource={OrgDataSource}
-            userColumns={OrgColumns}
-            // paginationChangeHandler={paginationChangeHandler}
-            // currentPage={currentPage}
-            // totalRecords={filteredData.length}
-            // performSearchHandler={performSearchHandler}
-            // searchValue={searchValue}
+            userColumns={OrgColumns} 
             showModal={showModal}
-          // openDrawerHandler={openDrawerHandler}
-          // setDrawerInfoHandler={setDrawerInfoHandler}
           ></DynamicTable>
 
+        }
+        {settingComponent === 'roles' &&
+         <DynamicTable
+         userDataSource={rolesData}
+         userColumns={RolesColumns} 
+         showModal={showModal}
+       ></DynamicTable>
         }
         {settingComponent === 'integrations' &&
           <InterigrationCards InterigrationData={InterigrationData} />
@@ -269,8 +326,9 @@ export default function Index() {
           handleOk={handleOk}
           isModalOpen={IsModalOpen}
         />
+        
         <Drawer
-          title={`Add ${settingComponent}`}
+          title={permissionDrawer ?'Permission Details' : `Add ${settingComponent}`}
           placement={'right'}
           closable={false}
           onClose={onClose}
@@ -302,6 +360,9 @@ export default function Index() {
             {settingComponent === "organizations" &&
               <AddORGForm />
             }
+            {settingComponent === "roles" &&
+              <>{permissionDrawer ? <div>Permission</div> :<div>Roles</div>} </>
+            }{permissionDrawer ? ``:
             <Row justify="start" className='SaveAndCancelbtn' style={{ marginBottom: '10px' }} >
               <Col xs={10} md={10} lg={4} sm={10}>
                 <Button
@@ -322,7 +383,7 @@ export default function Index() {
                   Cancel
                 </Button>
               </Col>
-            </Row>
+            </Row>}
           </Form>
 
         </Drawer>

@@ -4,21 +4,21 @@
  }
 
 .ant-menu-item-selected{
-    background-color: #F3F5F7 !important;
+    background-color: #F3F8FF  !important;
     border-left: 3px #286FD1 solid;
 }
 .ant-menu-item{
     margin: 0% !important;
-    width: 256px !important;
+    width: 200px !important;
     border-radius: 0px !important;
 }
 ul{
     margin: 0% !important;
 }
 aside{
-    width: 256px !important;
+    width: 200px !important;
     max-width: 300px !important;
-    min-width: 256px !important ;
+    min-width: 200px !important ;
     /* height: 100% !important;
     position: fixed; */
     height: auto !important;
@@ -51,7 +51,7 @@ ul{
   .getsuppBtn {
     margin-top: auto !important;
     border: #286FD1 solid 1px;
-    width: 50% !important;
+    width: 60% !important;
     color: #286FD1;
   }
   .ant-layout-sider-children{

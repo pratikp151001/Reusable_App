@@ -9,7 +9,7 @@ export default function index(props: any) {
                 {InterigrationData.map((item: any, index: any) => (
                     <Col xs={24} md={12} lg={6} sm={24} xl={6} style={{ marginBottom: '2%',textAlign:'left' }} >
                         <Card bordered={true} >
-                            <Image preview={false} src={item?.logo}  style={{display:'block',height:'50px'}} />
+                            <Image preview={false} src={item?.logo}  style={{display:'block',height:'50px'}} /><br/>
                             <span style={{marginBottom:'2%'}} >Company:</span>
                             <p style={{ paddingBottom: '10px' }}>{item?.title}</p>
                             <Button type="primary" ghost={item?.ghost}>

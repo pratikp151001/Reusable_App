@@ -11,3 +11,7 @@
     text-align: center !important;
     align-items: center !important;
 }
+.ant-alert{
+    border: none !important;
+    background-color: white;
+}

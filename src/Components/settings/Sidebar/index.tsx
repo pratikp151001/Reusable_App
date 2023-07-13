@@ -65,7 +65,6 @@ export default function Index(props:any) {
       }}>
       <Menu
          onClick={handleSidebar}
-        style={{ width: 256 }}
         defaultSelectedKeys={['users']}
         mode="inline"
         items={items}
