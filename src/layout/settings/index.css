@@ -1,5 +1,7 @@
 .childrendiv{
     width:'100%';
     padding:1% 2% !important;
-    min-height: calc(100vh - 64px ) !important;
+    max-height: calc(100vh - 64px ) !important;
+    overflow: scroll !important;
+    /* overflow: scroll; */
 }

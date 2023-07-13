@@ -23,7 +23,7 @@ export default function Index(props:any) {
         }}
         columns={userColumns}
         // scroll={{ y: "65vh", x: "65vh" }}
-        scroll={{ x: true }}
+        scroll={{ x: true}}
         
       >
         {/* <Column

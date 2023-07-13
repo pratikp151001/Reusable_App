@@ -15,7 +15,7 @@ export default function index(props:any) {
             <Layout hasSider >
                <Sider handleSidebar={handleSidebar}></Sider>
                <div className='childrendiv' style={{width:'100%',backgroundColor:'#F3F8FF'}}>
-               <div >{children}</div>
+               {children}
                </div>
             </Layout>
 

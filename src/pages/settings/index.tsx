@@ -4,7 +4,7 @@ import AddInfo from '../../Components/settings/AddInfo/index'
 import DynamicTable from "../../Components/settings/Table/index"
 import { MenuInfo } from 'rc-menu/lib/interface';
 import ConfirmDelete from "../../Components/golbal/DeleteConfirmationModal/index"
-import { Alert, Button, Card, Col, Drawer, Form, Input, Row, Space, Switch } from 'antd';
+import { Alert, Button, Card, Checkbox, Col, Drawer, Form, Input, Row, Space, Switch } from 'antd';
 import { CloseOutlined, DeleteOutlined, EditOutlined, OrderedListOutlined } from '@ant-design/icons';
 // import { AddUserDrawerBody } from '../../constants/AddUserDrawer';
 import AddUserForm from "../../Components/settings/AddUser/index"
@@ -19,10 +19,12 @@ import "./index.css"
 import PreferenceCard from '../../Components/settings/preferenceCard/index'
 import preferencesData from '../../constants/PreferenceData'
 import rolesData from '../../constants/RolesData'
+import PermissionData from '../../constants/PermissionData'
+import AddRoleForm from '../../Components/settings/AddRole/index'
 
 
 export default function Index() {
- const [UserData,setUserData]=useState(UsersData)
+  const [UserData, setUserData] = useState(UsersData)
   const [settingComponent, setSettingComponent] = useState('users');
   const [IsModalOpen, setIsModalOpen] = useState(false)
   const [OpenDrawer, setOpenDrawer] = useState(false)
@@ -72,24 +74,24 @@ export default function Index() {
 
   }
 
-  const handleStatusChange=(e:any,data:any) => {
+  const handleStatusChange = (e: any, data: any) => {
     console.log("🚀 ~ file: index.tsx:76 ~ handleStatusChange ~ data:", data)
-   
-    const UpdatedData=UserData.map((item:any,index:any)=>{
-      if(item.id==data.id){
-        if(e){
+
+    const UpdatedData = UserData.map((item: any, index: any) => {
+      if (item.id == data.id) {
+        if (e) {
           console.log("first")
-          return {...item,status:`Enable`}
+          return { ...item, status: `Enable` }
         }
         {
-          return {...item,status:`Disable`}
+          return { ...item, status: `Disable` }
         }
       }
-      else{
-      return item
+      else {
+        return item
       }
     })
-  
+
     setUserData(UpdatedData)
   }
 
@@ -122,9 +124,9 @@ export default function Index() {
       title: "Status",
       dataIndex: 'status',
       key: 'status',
-      render: (status: any,id:any) => (
+      render: (status: any, id: any) => (
         <>
-          {status === `Enable` ? <Switch onChange={(e)=>{handleStatusChange(e,id)}} defaultChecked /> : <Switch onChange={(e)=>{handleStatusChange(e,id)}}  ></Switch>
+          {status === `Enable` ? <Switch onChange={(e) => { handleStatusChange(e, id) }} defaultChecked /> : <Switch onChange={(e) => { handleStatusChange(e, id) }}  ></Switch>
           }{' '}
           {status}
         </>
@@ -219,7 +221,7 @@ export default function Index() {
       dataIndex: 'discription',
       key: 'discription',
     },
-   
+
     {
       title: 'Status',
       dataIndex: 'isActive',
@@ -236,8 +238,8 @@ export default function Index() {
       title: 'Permission',
       dataIndex: 'permission',
       key: 'permission',
-      render: (permission:string) => {
-        return (<Button style={{border:'none',color:'#0074FF'}} onClick={()=>{setOpenDrawer(true);setpermissionDrawer(true)}} ><OrderedListOutlined />{`  ${permission}`}</Button>)
+      render: (permission: string) => {
+        return (<Button style={{ border: 'none', color: '#0074FF' }} onClick={() => { setOpenDrawer(true); setpermissionDrawer(true) }} ><OrderedListOutlined />{`  ${permission}`}</Button>)
       }
     },
     {
@@ -257,6 +259,58 @@ export default function Index() {
         </Space>
       }
     }
+  ];
+  const PermissionColumns = [
+    {
+      title: 'Module Name',
+      dataIndex: 'moduleName',
+      key: 'moduleName'
+      // sortDirections: ['descend'],
+    },
+    {
+      title: 'All',
+      dataIndex: 'all',
+      key: 'all',
+      render: (all: any,data:any) => {
+        console.log("🚀 ~ file: index.tsx:274 ~ Index ~ id:", data)
+       return <> {data.moduleName!="Admin" ? <Checkbox></Checkbox> : `` }
+       </>
+      }
+      
+
+    },
+    {
+      title: 'View',
+      dataIndex: 'view',
+      key: 'view',
+      render: (all: any,data:any) => {
+        console.log("🚀 ~ file: index.tsx:274 ~ Index ~ id:", data)
+       return <> {data.moduleName!="Admin" ? <Checkbox></Checkbox> : `` }
+       </>
+      }
+    },
+    {
+      title: 'Edit',
+      dataIndex: 'edit',
+      key: 'edit',
+      render: (all: any,data:any) => {
+        console.log("🚀 ~ file: index.tsx:274 ~ Index ~ id:", data)
+       return <> {data.moduleName!="Admin" ? <Checkbox></Checkbox> : `` }
+       </>
+      }
+    },
+    {
+      title: 'Delete',
+      dataIndex: 'delete',
+      key: 'delete',
+      render: (all: any,data:any) => {
+        console.log("🚀 ~ file: index.tsx:274 ~ Index ~ id:", data)
+       return <> {data.moduleName!="Admin" ? <Checkbox></Checkbox> : `` }
+       </>
+      }
+    },
+
+
   ];
 
   return (
@@ -285,35 +339,37 @@ export default function Index() {
         {settingComponent === 'organizations' &&
           <DynamicTable
             userDataSource={OrgDataSource}
-            userColumns={OrgColumns} 
+            userColumns={OrgColumns}
             showModal={showModal}
           ></DynamicTable>
 
         }
         {settingComponent === 'roles' &&
-         <DynamicTable
-         userDataSource={rolesData}
-         userColumns={RolesColumns} 
-         showModal={showModal}
-       ></DynamicTable>
+          <DynamicTable
+            userDataSource={rolesData}
+            userColumns={RolesColumns}
+            showModal={showModal}
+          ></DynamicTable>
         }
         {settingComponent === 'integrations' &&
           <InterigrationCards InterigrationData={InterigrationData} />
         }
         {
           settingComponent === "preference" &&
-          <div style={{width:'100%'}}>
-           
-          {preferencesData?.map((preference, index) => (
-             
-            <React.Fragment key={index}>
-               < PreferenceCard  preferencesData={preference}/>
-            </React.Fragment>
-           
-          ))}
-        </div>
+          // <div style={{ width: '100%' }}>
+<>
+            {preferencesData?.map((preference, index) => (
 
-        
+              <React.Fragment key={index}>
+                < PreferenceCard preferencesData={preference} />
+              </React.Fragment>
+
+            ))}
+            </>
+          // </div>
+
+
+
         }
         {
           settingComponent === "subscription" &&
@@ -326,9 +382,9 @@ export default function Index() {
           handleOk={handleOk}
           isModalOpen={IsModalOpen}
         />
-        
+
         <Drawer
-          title={permissionDrawer ?'Permission Details' : `Add ${settingComponent}`}
+          title={permissionDrawer ? 'Permission Details' : `Add ${settingComponent}`}
           placement={'right'}
           closable={false}
           onClose={onClose}
@@ -361,29 +417,34 @@ export default function Index() {
               <AddORGForm />
             }
             {settingComponent === "roles" &&
-              <>{permissionDrawer ? <div>Permission</div> :<div>Roles</div>} </>
-            }{permissionDrawer ? ``:
-            <Row justify="start" className='SaveAndCancelbtn' style={{ marginBottom: '10px' }} >
-              <Col xs={10} md={10} lg={4} sm={10}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  block={true}
-                  size="large"
-                >
-                  Save
-                </Button>
-              </Col>
-              <Col xs={{ span: 10, offset: 1 }} md={10} lg={4} sm={10}>
-                <Button
-                  onClick={onClose}
-                  block={true}
-                  size='large'
-                >
-                  Cancel
-                </Button>
-              </Col>
-            </Row>}
+              <>{permissionDrawer ? <DynamicTable
+                userDataSource={PermissionData}
+                userColumns={PermissionColumns}
+                showModal={showModal}
+              ></DynamicTable> : <AddRoleForm/>} </>
+            }{
+              permissionDrawer ? `` :
+                <Row justify="start" className='SaveAndCancelbtn' style={{ marginBottom: '10px' }} >
+                  <Col xs={10} md={10} lg={4} sm={10}>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      block={true}
+                      size="large"
+                    >
+                      Save
+                    </Button>
+                  </Col>
+                  <Col xs={{ span: 10, offset: 1 }} md={10} lg={4} sm={10}>
+                    <Button
+                      onClick={onClose}
+                      block={true}
+                      size='large'
+                    >
+                      Cancel
+                    </Button>
+                  </Col>
+                </Row>}
           </Form>
 
         </Drawer>
