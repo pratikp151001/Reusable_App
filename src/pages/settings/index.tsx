@@ -16,6 +16,8 @@ import UserData from '../../constants/userData'
 import InterigrationCards from '../../Components/settings/Integrations/index'
 import InterigrationData from '../../constants/InterigrationData'
 import "./index.css"
+import PreferenceCard from '../../Components/settings/preferenceCard/index'
+import preferencesData from '../../constants/PreferenceData'
 
 
 export default function Index() {
@@ -222,6 +224,21 @@ export default function Index() {
         }
         {settingComponent === 'integrations' &&
           <InterigrationCards InterigrationData={InterigrationData} />
+        }
+        {
+          settingComponent === "preference" &&
+          <div style={{width:'100%'}}>
+           
+          {preferencesData?.map((preference, index) => (
+             
+            <React.Fragment key={index}>
+               < PreferenceCard  preferencesData={preference}/>
+            </React.Fragment>
+           
+          ))}
+        </div>
+
+        
         }
         {
           settingComponent === "subscription" &&
