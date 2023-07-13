@@ -12,7 +12,7 @@ import AddORGForm from '../../Components/settings/AddOrganization/index'
 import { toastText } from '../../utils/DisplayToast'
 import SubcriptionCards from '../../Components/settings/Subscription/index'
 import OrgDataSource from '../../constants/OrganizationData';
-import UserData from '../../constants/userData'
+import UsersData from '../../constants/userData'
 import InterigrationCards from '../../Components/settings/Integrations/index'
 import InterigrationData from '../../constants/InterigrationData'
 import "./index.css"
@@ -21,10 +21,7 @@ import preferencesData from '../../constants/PreferenceData'
 
 
 export default function Index() {
-  // const [filteredData, setFilterData] = useState(UserData);
-  // // Inits
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [data, setData] = useState(filteredData.slice(0, 10));
+ const [UserData,setUserData]=useState(UsersData)
   const [settingComponent, setSettingComponent] = useState('users');
   const [IsModalOpen, setIsModalOpen] = useState(false)
   const [OpenDrawer, setOpenDrawer] = useState(false)
@@ -72,6 +69,27 @@ export default function Index() {
 
   }
 
+  const handleStatusChange=(e:any,data:any) => {
+    console.log("🚀 ~ file: index.tsx:76 ~ handleStatusChange ~ data:", data)
+   
+    const UpdatedData=UserData.map((item:any,index:any)=>{
+      if(item.id==data.id){
+        if(e){
+          console.log("first")
+          return {...item,status:`Enable`}
+        }
+        {
+          return {...item,status:`Disable`}
+        }
+      }
+      else{
+      return item
+      }
+    })
+  
+    setUserData(UpdatedData)
+  }
+
   const userColumns = [
     {
       title: 'Organization Name',
@@ -101,9 +119,9 @@ export default function Index() {
       title: "Status",
       dataIndex: 'status',
       key: 'status',
-      render: (status: any) => (
+      render: (status: any,id:any) => (
         <>
-          {status === `Enable` ? <Switch defaultChecked /> : <Switch ></Switch>
+          {status === `Enable` ? <Switch onChange={(e)=>{handleStatusChange(e,id)}} defaultChecked /> : <Switch onChange={(e)=>{handleStatusChange(e,id)}}  ></Switch>
           }{' '}
           {status}
         </>
