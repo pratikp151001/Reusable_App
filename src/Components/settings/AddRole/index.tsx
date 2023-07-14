@@ -7,7 +7,7 @@ export default function index() {
     <>
       <Row justify="start" >
         <Col xs={24} md={24} lg={24} sm={24}>
-        <label> {'Add OrganizationName'}</label>
+          <label> {'Add OrganizationName'}</label>
           <Form.Item className='formItem'
             name={'OrganizationName'}
             wrapperCol={{ span: 24 }}
@@ -27,7 +27,7 @@ export default function index() {
       </Row>
       <Row justify="start" >
         <Col xs={24} md={24} lg={24} sm={24}>
-        <label> {'Description'}</label>
+          <label> {'Description'}</label>
           <Form.Item className='formItem'
             name={'description'}
             wrapperCol={{ span: 24 }}
@@ -38,7 +38,7 @@ export default function index() {
               },
             ]}
           >
-             <TextArea rows={4} placeholder={'Please Enter Description'} />
+            <TextArea rows={4} placeholder={'Please Enter Description'} />
           </Form.Item>
         </Col>
       </Row>

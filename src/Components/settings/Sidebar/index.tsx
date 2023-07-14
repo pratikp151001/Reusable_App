@@ -10,9 +10,9 @@ import Sider from 'antd/es/layout/Sider'
 import { Button, Menu, MenuProps } from 'antd';
 import "./index.css"
 
-export default function Index(props:any) {
+export default function Index(props: any) {
 
-  const {handleSidebar}=props
+  const { handleSidebar } = props
   const items: MenuProps['items'] = [
     {
       key: 'users',
@@ -64,13 +64,13 @@ export default function Index(props:any) {
         height: '100vh',
       }}>
       <Menu
-         onClick={handleSidebar}
+        onClick={handleSidebar}
         defaultSelectedKeys={['users']}
         mode="inline"
         items={items}
       />
       <Button
-      className='getsuppBtn'
+        className='getsuppBtn'
         block={true}
         size="large"
       >

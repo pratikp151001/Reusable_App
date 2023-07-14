@@ -1,0 +1,24 @@
+.DeleteIcon {
+    text-align: center !important;
+    font-size: 300%;
+    color: #E74032;
+    margin-bottom: 20px;
+}
+
+.ant-modal-footer {
+    text-align: center !important;
+}
+
+.ant-modal-footer .ant-btn-primary {
+    background-color: #E74032;
+
+}
+
+.ant-modal-footer .ant-btn-primary:hover {
+    background-color: #E74032 !important;
+}
+
+.DeleteMsg {
+    text-align: center;
+    color: black;
+}
