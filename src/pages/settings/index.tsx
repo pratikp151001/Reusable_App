@@ -393,7 +393,7 @@ export default function Index() {
           className='AddUserDrawer'
           extra={
             <Space>
-              {/* <Button onClick={onClose}><CloseOutlined /></Button> */}
+              <Button onClick={onClose}><CloseOutlined /></Button>
             </Space>
           }
         // closeIcon={<CloseOutlined style={{right:'2%',position:'absolute'}}/> }
