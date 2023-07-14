@@ -8,10 +8,10 @@ export default function index() {
     return (
         <>
 
-            <Row justify={'space-between'}>
+            <Row justify={'space-between'} gutter={16}>
                 {SubcriptionData.map((item, index) => (
 
-                    <Col xs={24} md={24} lg={11} sm={24} style={{ marginBottom: '2%' }}>
+                    <Col xs={24} md={24} lg={12} sm={24} style={{ marginBottom: '2%' }}>
                         <Card title={item.title} extra={<Button style={{ border: '2px solid #2E1F7A', borderRadius: '20px', fontWeight: '600', color: "#2E1F7A" }} >{item.buttonName}</Button>} >
                             <Row justify="start" >
                                 <Col xs={16} md={16} lg={8} sm={8} style={{ textAlign: 'start' }}>

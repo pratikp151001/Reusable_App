@@ -1,17 +1,27 @@
-
-.ant-spin-container{
+.ant-spin-container {
     text-align: center !important;
     align-items: center !important;
 }
-.ant-pagination{
+
+.ant-pagination {
     text-align: center;
     align-items: center;
 }
-.usertable{
+
+.usertable {
     text-align: center !important;
     align-items: center !important;
 }
-.ant-alert{
+
+.ant-alert {
     border: none !important;
     background-color: white;
+}
+
+.searchAndfilter {
+    margin-bottom: 2% !important;
+}
+
+.ant-table-cell {
+    padding: 1% 2% !important;
 }

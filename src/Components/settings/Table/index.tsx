@@ -2,62 +2,41 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import { Space, Table } from 'antd'
 import Column from 'antd/es/table/Column'
 import "antd/es/table/style"
+import SearchAndFilter from '../../settings/SearchAndFilter/index'
 import './index.css'
 
 
+export default function Index(props: any) {
 
-
-export default function Index(props:any) {
-   
-  const {showModal,userDataSource,userColumns}=props
+  const { userDataSource, userColumns, permissionDrawer, paginationChangeHandler, currentPage, totalRecords, performSearchHandler, searchValue, PageSize, modifyPageSize } = props
   return (
-    <div>
-        <Table
+    <>{permissionDrawer ? `` :
+      <div className='searchAndfilter'>
+        <SearchAndFilter
+          performSearchHandler={performSearchHandler}
+          searchValue={searchValue}
+          modifyPageSize={modifyPageSize}
+          PageSize={PageSize}
+        ></SearchAndFilter>
+      </div>
+    }
+      <Table
         dataSource={userDataSource}
         pagination={{
-          // total: totalRecords,
-          //  current: currentPage,
-        //   onChange: paginationChangeHandler,
-          className: 'dynamic-table__pagination',
-          
+          total: totalRecords,
+          current: currentPage,
+          onChange: paginationChangeHandler,
+          responsive: true,
+          pageSize: PageSize,
+          position: ['bottomCenter'],
+          hideOnSinglePage: true
         }}
         columns={userColumns}
         // scroll={{ y: "65vh", x: "65vh" }}
-        scroll={{ x: true}}
-        
+        scroll={{ x: true }}
       >
-        {/* <Column
-          title="Organization Name"
-          dataIndex="name"
-          key="name"
-          sorter={(a: any, b: any) => a.name.length - b.name.length}
-       
-          sortDirections={['descend']}
-         
-        />
-        <Column title="Email Address" dataIndex="email" key="email" />
-        <Column title="Phone Number" dataIndex="phone" key="phone" />
-        <Column title="Created On" dataIndex="created" key="created" />
-        <Column
-          title="Action"
-          dataIndex="action"
-          key="action"
-          render={() => (
-            <Space size={10}>
-              <EditOutlined
-                className="table-edit-icon"
-                // onClick={editDataHandler}
-              />
-              <DeleteOutlined
-                className="table-delete-icon"
-                onClick={showModal}
-              />
-            </Space>
-          )}
-        /> */}
+
       </Table>
-      
-      
-    </div>
+    </>
   )
 }

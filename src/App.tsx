@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 }

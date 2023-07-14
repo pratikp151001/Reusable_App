@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import SettingLayout from '../../layout/settings/index'
 import AddInfo from '../../Components/settings/AddInfo/index'
 import DynamicTable from "../../Components/settings/Table/index"
@@ -25,15 +25,46 @@ import AddRoleForm from '../../Components/settings/AddRole/index'
 
 export default function Index() {
   const [UserData, setUserData] = useState(UsersData)
+  const [filteredData, setfilteredData] = useState(UserData)
   const [settingComponent, setSettingComponent] = useState('users');
   const [IsModalOpen, setIsModalOpen] = useState(false)
   const [OpenDrawer, setOpenDrawer] = useState(false)
   const [permissionDrawer, setpermissionDrawer] = useState(false)
+  const [currentPage, setcurrentPage] = useState(1)
+  const [searchValue, setSearchValue] = useState('')
+  const [PageSize, setPageSize] = useState(10)
 
   const handleSidebar = (event: MenuInfo) => {
     console.log('Event: ', event.key);
     setSettingComponent(event?.key);
   };
+
+  //modifyPageSize
+  const modifyPageSize = (size: number) => {
+    setPageSize(size)
+  }
+
+  //paginationChangeHandler
+
+  const paginationChangeHandler = (pagenumber: number) => {
+    setcurrentPage(pagenumber)
+  }
+
+  const performSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log("Running Function")
+    const { value } = e.target
+    setSearchValue(value);
+    const searchedRecords = UserData.filter((singleRecord: any) => {
+      if (singleRecord.name.includes(value)) {
+        return singleRecord
+      }
+    }
+    );
+    setfilteredData(searchedRecords)
+    console.log("🚀 ~ file: index.tsx:48 ~ performSearchHandler ~ value:", value)
+
+  }
+
   function getAdd() {
     if (
       settingComponent === 'users' ||
@@ -51,10 +82,12 @@ export default function Index() {
 
   const handleOk = () => {
     setIsModalOpen(false);
+    toastText("Deleted Successfully", 'success')
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    toastText("Fail to Delete", 'error')
   };
   const onClose = () => {
     setpermissionDrawer(false)
@@ -126,7 +159,7 @@ export default function Index() {
       key: 'status',
       render: (status: any, id: any) => (
         <>
-          {status === `Enable` ? <Switch onChange={(e) => { handleStatusChange(e, id) }} defaultChecked /> : <Switch onChange={(e) => { handleStatusChange(e, id) }}  ></Switch>
+          {status === `Enable` ? <Switch size="small" onChange={(e) => { handleStatusChange(e, id) }} defaultChecked /> : <Switch size="small" onChange={(e) => { handleStatusChange(e, id) }}  ></Switch>
           }{' '}
           {status}
         </>
@@ -272,19 +305,16 @@ export default function Index() {
       dataIndex: 'all',
       key: 'all',
       render: (all: any, data: any) => {
-        console.log("🚀 ~ file: index.tsx:274 ~ Index ~ id:", data)
         return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
         </>
       }
-
-
     },
     {
       title: 'View',
       dataIndex: 'view',
       key: 'view',
       render: (all: any, data: any) => {
-        console.log("🚀 ~ file: index.tsx:274 ~ Index ~ id:", data)
+
         return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
         </>
       }
@@ -294,7 +324,7 @@ export default function Index() {
       dataIndex: 'edit',
       key: 'edit',
       render: (all: any, data: any) => {
-        console.log("🚀 ~ file: index.tsx:274 ~ Index ~ id:", data)
+
         return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
         </>
       }
@@ -304,7 +334,7 @@ export default function Index() {
       dataIndex: 'delete',
       key: 'delete',
       render: (all: any, data: any) => {
-        console.log("🚀 ~ file: index.tsx:274 ~ Index ~ id:", data)
+
         return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
         </>
       }
@@ -323,14 +353,16 @@ export default function Index() {
         />
         {settingComponent === 'users' &&
           <DynamicTable
-            userDataSource={UserData}
+            userDataSource={filteredData}
             userColumns={userColumns}
-            // paginationChangeHandler={paginationChangeHandler}
-            // currentPage={currentPage}
-            // totalRecords={filteredData.length}
-            // performSearchHandler={performSearchHandler}
-            // searchValue={searchValue}
+            paginationChangeHandler={paginationChangeHandler}
+            currentPage={currentPage}
+            totalRecords={filteredData.length}
+            performSearchHandler={performSearchHandler}
+            searchValue={searchValue}
             showModal={showModal}
+            PageSize={PageSize}
+            modifyPageSize={modifyPageSize}
           // openDrawerHandler={openDrawerHandler}
           // setDrawerInfoHandler={setDrawerInfoHandler}
           ></DynamicTable>
@@ -340,6 +372,11 @@ export default function Index() {
           <DynamicTable
             userDataSource={OrgDataSource}
             userColumns={OrgColumns}
+            paginationChangeHandler={paginationChangeHandler}
+            currentPage={currentPage}
+            totalRecords={OrgDataSource.length}
+            performSearchHandler={performSearchHandler}
+            searchValue={searchValue}
             showModal={showModal}
           ></DynamicTable>
 
@@ -348,6 +385,11 @@ export default function Index() {
           <DynamicTable
             userDataSource={rolesData}
             userColumns={RolesColumns}
+            paginationChangeHandler={paginationChangeHandler}
+            currentPage={currentPage}
+            totalRecords={OrgDataSource.length}
+            performSearchHandler={performSearchHandler}
+            searchValue={searchValue}
             showModal={showModal}
           ></DynamicTable>
         }
@@ -358,31 +400,51 @@ export default function Index() {
           settingComponent === "preference" &&
           // <div style={{ width: '100%' }}>
           <>
-            {preferencesData?.map((preference, index) => (
+            < Row>
+              {preferencesData?.map((preference, index) => (
 
-              <React.Fragment key={index}>
-                < PreferenceCard preferencesData={preference} />
-              </React.Fragment>
+                <div style={{ marginBottom: '2%' }} key={index}>
+                  < PreferenceCard preferencesData={preference} />
+                </div>
+              ))}
+            </Row>
+            <Row justify={'start'} gutter={24}>
+              <Col lg={3} >
+                <Button
+                  type="primary"
+                  className='Savebtn'
+                  block={true}
+                  size="large"
+                >
+                  Save
+                </Button>
+              </Col>
+              <Col lg={3}>
+                <Button
+                  onClick={onClose}
+                  block={true}
+                  className='Cancelbtn'
+                  size='large'
+                >
+                  Cancel
+                </Button>
+              </Col>
+            </Row>
 
-            ))}
+
           </>
+
           // </div>
-
-
-
         }
         {
           settingComponent === "subscription" &&
           <SubcriptionCards />
         }
-
-
         <ConfirmDelete
           handleCancel={handleCancel}
           handleOk={handleOk}
           isModalOpen={IsModalOpen}
         />
-
         <Drawer
           title={permissionDrawer ? 'Permission Details' : `Add ${settingComponent}`}
           placement={'right'}
@@ -398,8 +460,6 @@ export default function Index() {
           }
         // closeIcon={<CloseOutlined style={{right:'2%',position:'absolute'}}/> }
         >
-
-
           <Form
             name="basic"
             initialValues={{ remember: true }}
@@ -408,7 +468,6 @@ export default function Index() {
             autoComplete="off"
             layout="vertical"
             labelAlign="left"
-
           >
             {settingComponent === "users" &&
               <AddUserForm />
@@ -420,6 +479,7 @@ export default function Index() {
               <>{permissionDrawer ? <DynamicTable
                 userDataSource={PermissionData}
                 userColumns={PermissionColumns}
+                permissionDrawer={permissionDrawer}
                 showModal={showModal}
               ></DynamicTable> : <AddRoleForm />} </>
             }{
