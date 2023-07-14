@@ -271,42 +271,42 @@ export default function Index() {
       title: 'All',
       dataIndex: 'all',
       key: 'all',
-      render: (all: any,data:any) => {
+      render: (all: any, data: any) => {
         console.log("🚀 ~ file: index.tsx:274 ~ Index ~ id:", data)
-       return <> {data.moduleName!="Admin" ? <Checkbox></Checkbox> : `` }
-       </>
+        return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
+        </>
       }
-      
+
 
     },
     {
       title: 'View',
       dataIndex: 'view',
       key: 'view',
-      render: (all: any,data:any) => {
+      render: (all: any, data: any) => {
         console.log("🚀 ~ file: index.tsx:274 ~ Index ~ id:", data)
-       return <> {data.moduleName!="Admin" ? <Checkbox></Checkbox> : `` }
-       </>
+        return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
+        </>
       }
     },
     {
       title: 'Edit',
       dataIndex: 'edit',
       key: 'edit',
-      render: (all: any,data:any) => {
+      render: (all: any, data: any) => {
         console.log("🚀 ~ file: index.tsx:274 ~ Index ~ id:", data)
-       return <> {data.moduleName!="Admin" ? <Checkbox></Checkbox> : `` }
-       </>
+        return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
+        </>
       }
     },
     {
       title: 'Delete',
       dataIndex: 'delete',
       key: 'delete',
-      render: (all: any,data:any) => {
+      render: (all: any, data: any) => {
         console.log("🚀 ~ file: index.tsx:274 ~ Index ~ id:", data)
-       return <> {data.moduleName!="Admin" ? <Checkbox></Checkbox> : `` }
-       </>
+        return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
+        </>
       }
     },
 
@@ -357,7 +357,7 @@ export default function Index() {
         {
           settingComponent === "preference" &&
           // <div style={{ width: '100%' }}>
-<>
+          <>
             {preferencesData?.map((preference, index) => (
 
               <React.Fragment key={index}>
@@ -365,7 +365,7 @@ export default function Index() {
               </React.Fragment>
 
             ))}
-            </>
+          </>
           // </div>
 
 
@@ -393,7 +393,7 @@ export default function Index() {
           className='AddUserDrawer'
           extra={
             <Space>
-              <Button onClick={onClose}><CloseOutlined /></Button>
+              {/* <Button onClick={onClose}><CloseOutlined /></Button> */}
             </Space>
           }
         // closeIcon={<CloseOutlined style={{right:'2%',position:'absolute'}}/> }
@@ -421,7 +421,7 @@ export default function Index() {
                 userDataSource={PermissionData}
                 userColumns={PermissionColumns}
                 showModal={showModal}
-              ></DynamicTable> : <AddRoleForm/>} </>
+              ></DynamicTable> : <AddRoleForm />} </>
             }{
               permissionDrawer ? `` :
                 <Row justify="start" className='SaveAndCancelbtn' style={{ marginBottom: '10px' }} >
