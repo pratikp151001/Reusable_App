@@ -57,5 +57,4 @@ const loginFormData = [
   }
 
 ]
-
 export default loginFormData
