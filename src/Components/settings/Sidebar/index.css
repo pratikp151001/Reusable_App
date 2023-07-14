@@ -1,64 +1,82 @@
-.ant-menu-title-content{
-    margin: 0%;
-    padding: 0%;
- }
+.ant-menu-title-content {
+  margin: 0%;
+  padding: 0%;
+}
 
-.ant-menu-item-selected{
-    background-color: #F3F8FF  !important;
-    border-left: 3px #286FD1 solid;
+.ant-menu-item-selected {
+  background-color: #F3F8FF !important;
+  border-left: 3px #286FD1 solid;
 }
-.ant-menu-item{
-    margin: 0% !important;
-    width: 200px !important;
-    border-radius: 0px !important;
+
+.ant-menu-item {
+  margin: 0% !important;
+  width: 200px !important;
+  border-radius: 0px !important;
 }
-ul{
-    margin: 0% !important;
+
+ul {
+  margin: 0% !important;
 }
-aside{
-    width: 200px !important;
-    max-width: 300px !important;
-    min-width: 200px !important ;
-    /* height: 100% !important;
+
+aside {
+  width: 200px !important;
+  max-width: 300px !important;
+  min-width: 200px !important;
+  /* height: 100% !important;
     position: fixed; */
-    height: auto !important;
-    display: flex;
-    flex-direction: column;
+  height: calc(100vh - 64px) !important;
+  min-height: calc(100vh - 64px) !important;
+  max-height: auto !important;
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
 }
+
 @media only screen and (max-width: 750px) {
-    .ant-menu-title-content{
-     display: none !important;
-  }
-  aside{
-    width: 100px !important;
-    max-width: 100px !important;
-    min-width: 100px !important ;
-   
-  }
-  .getsuppBtn{
-    overflow: hidden;
-  }
-ul{
-   width: 100px !important;
-}
-.ant-menu-item{
-   
-    width: 100px !important;
-   
-}
+  .ant-menu-title-content {
+    display: none !important;
   }
 
   .getsuppBtn {
-    margin-top: auto !important;
-    border: #286FD1 solid 1px;
-    width: 60% !important;
-    color: #286FD1;
+    width: 50px !important;
+    min-height: 30px !important;
+
   }
-  .ant-layout-sider-children{
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    height: 95% !important;
-    /* height: calc(100% - 20px ) !important; */
+
+  aside {
+    width: 100px !important;
+    max-width: 100px !important;
+    min-width: 100px !important;
   }
-  
+
+  .getsuppBtn {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  ul {
+    width: 100px !important;
+  }
+
+  .ant-menu-item {
+
+    width: 100px !important;
+
+  }
+}
+
+.getsuppBtn {
+  margin-top: auto !important;
+  border: #286FD1 solid 1px;
+  width: 60% !important;
+  color: #286FD1;
+}
+
+.ant-layout-sider-children {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 95% !important;
+  /* height: calc(100% - 20px ) !important; */
+}

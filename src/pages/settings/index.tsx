@@ -51,10 +51,12 @@ export default function Index() {
 
   const handleOk = () => {
     setIsModalOpen(false);
+    toastText("Deleted Successfully", 'success')
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    toastText("Fail to Delete", 'error')
   };
   const onClose = () => {
     setpermissionDrawer(false)
@@ -276,8 +278,6 @@ export default function Index() {
         return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
         </>
       }
-
-
     },
     {
       title: 'View',
@@ -357,15 +357,14 @@ export default function Index() {
         {
           settingComponent === "preference" &&
           // <div style={{ width: '100%' }}>
-          <>
+          < Row>
             {preferencesData?.map((preference, index) => (
 
-              <React.Fragment key={index}>
+              <div style={{ marginBottom: '2%' }} key={index}>
                 < PreferenceCard preferencesData={preference} />
-              </React.Fragment>
-
+              </div>
             ))}
-          </>
+          </Row>
           // </div>
 
 

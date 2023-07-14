@@ -2,7 +2,8 @@
     width: '100%';
     padding: 1% 2% !important;
     max-height: calc(100vh - 64px) !important;
-    min-height: calc(100vh - 64px) !important;
-    overflow-y: scroll !important;
+    /* min-height: calc(100vh - 64px) !important; */
+    height: calc(100vh - 64px) !important;
+    overflow-y: auto !important;
     /* overflow: scroll; */
 }
