@@ -6,7 +6,7 @@ export default function index() {
     <>
       <Row justify="start" >
         <Col xs={24} md={24} lg={24} sm={24}>
-        <label> {'Add OrganizationName'}</label>
+          <label> {'Add OrganizationName'}</label>
           <Form.Item className='formItem'
             name={'OrganizationName'}
             wrapperCol={{ span: 24 }}
@@ -25,14 +25,15 @@ export default function index() {
         </Col>
       </Row>
       <Row justify="start" >
-        <Col  xs={12} md={12} lg={12} sm={12}>
-        <label> {'Email Address'}</label>
+        <Col xs={12} md={12} lg={12} sm={12}>
+          <label> {'Email Address'}</label>
           <Form.Item className='formItem'
             name={'Email'}
             wrapperCol={{ span: 24 }}
             rules={[
               {
                 required: true,
+                type: "email",
                 message: 'Please enter Email',
               },
             ]}
@@ -40,12 +41,12 @@ export default function index() {
             <Input
               placeholder={'Please Enter Email'}
               size="large"
-              type='email'
+
             />
           </Form.Item>
         </Col>
-        <Col  xs={12} md={12} lg={12} sm={12}>
-        <label> {'Phone Number'}</label>
+        <Col xs={12} md={12} lg={12} sm={12}>
+          <label> {'Phone Number'}</label>
           <Form.Item className='formItem'
             name={'PhoneNumber'}
             wrapperCol={{ span: 24 }}

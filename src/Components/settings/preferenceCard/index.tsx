@@ -5,7 +5,6 @@ export default function index(props: any) {
     const { preferencesData } = props
     return (
         <>
-
             <Card
                 title={preferencesData.title}
                 extra={<Switch defaultChecked={true} />}>
