@@ -3,7 +3,7 @@ import { Row, Col, InputNumber, Space, Input, Select } from 'antd'
 import React from 'react'
 
 export default function index(props: any) {
-    const { performSearchHandler, searchValue, modifyPageSize, PageSize } = props
+    const { performSearchHandler, searchValue, modifyPageSize, PageSize, handlefilterChange } = props
     return (
         <div >
             <div >
@@ -20,14 +20,15 @@ export default function index(props: any) {
                                 value={searchValue}
                                 defaultValue={''}
                             />
+
                             <Select
-                                defaultValue="filterOne"
+                                defaultValue="Choose Filter"
                                 style={{ width: 200 }}
                                 options={[
-                                    { label: 'Filter One', value: 'filterOne' },
-                                    { label: 'Filter Second', value: 'filterSecond' },
-                                    { label: 'Filter Third', value: 'filterThird' },
+                                    { label: 'Enable', value: 'Enable' },
+                                    { label: 'Disable', value: 'Disable' },
                                 ]}
+                                onChange={(e) => { handlefilterChange(e) }}
                             />
                         </Space>
                     </Col>

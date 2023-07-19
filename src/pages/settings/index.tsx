@@ -5,7 +5,7 @@ import DynamicTable from "../../Components/settings/Table/index"
 import { MenuInfo } from 'rc-menu/lib/interface';
 import ConfirmDelete from "../../Components/golbal/DeleteConfirmationModal/index"
 import { Alert, Button, Card, Checkbox, Col, Drawer, Form, Input, Row, Space, Switch } from 'antd';
-import { CloseOutlined, DeleteOutlined, EditOutlined, OrderedListOutlined } from '@ant-design/icons';
+import Icon, { CloseOutlined, DeleteOutlined, EditOutlined, OrderedListOutlined, ThunderboltTwoTone } from '@ant-design/icons';
 // import { AddUserDrawerBody } from '../../constants/AddUserDrawer';
 import AddUserForm from "../../Components/settings/AddUser/index"
 import AddORGForm from '../../Components/settings/AddOrganization/index'
@@ -33,6 +33,26 @@ export default function Index() {
   const [currentPage, setcurrentPage] = useState(1)
   const [searchValue, setSearchValue] = useState('')
   const [PageSize, setPageSize] = useState(10)
+  const [appiledFilter, setappiledFilter] = useState()
+
+
+  const handlefilterChange = (e: any) => {
+    setappiledFilter(e)
+    const filteredData = UserData.filter((singleRecord: any) => {
+      if (singleRecord.status == e && singleRecord.fistName.includes(searchValue)) {
+        return singleRecord
+      }
+    }
+    );
+    // const filteredData = searchedRecords.filter((item: any, index: any) => {
+
+    //   if (item.fistName.includes(searchValue)) {
+    //     return item
+    //   }
+    // }
+    // )
+    setfilteredData(filteredData)
+  }
 
   const handleSidebar = (event: MenuInfo) => {
     console.log('Event: ', event.key);
@@ -54,16 +74,19 @@ export default function Index() {
     console.log("Running Function")
     const { value } = e.target
     setSearchValue(value);
-    const searchedRecords = UserData.filter((singleRecord: any) => {
-      if (singleRecord.name.includes(value)) {
+    const filteredData = UserData.filter((singleRecord: any) => {
+      if (singleRecord.status == appiledFilter && singleRecord.fistName.includes(value)) {
         return singleRecord
       }
     }
     );
-    setfilteredData(searchedRecords)
-    console.log("🚀 ~ file: index.tsx:48 ~ performSearchHandler ~ value:", value)
+
+    setfilteredData(filteredData)
+    console.log("🚀 ~ file: index.tsx:48 ~ performSearchHandler ~ value:", filteredData)
+
 
   }
+
 
   function getAdd() {
     if (
@@ -103,13 +126,16 @@ export default function Index() {
   function onFinish(values: any): void {
     console.log("🚀 ~ file: index.tsx:27 ~ onFinish ~ values:", values)
     toastText(`${settingComponent} Added Successfully`, 'success')
+    values.id = Math.random()
+    values.status = `Disable`
+
+    setUserData([...UserData, values])
+    setfilteredData([...filteredData, values])
     setOpenDrawer(false)
 
   }
 
   const handleStatusChange = (e: any, data: any) => {
-    console.log("🚀 ~ file: index.tsx:76 ~ handleStatusChange ~ data:", data)
-
     const UpdatedData = UserData.map((item: any, index: any) => {
       if (item.id == data.id) {
         if (e) {
@@ -125,14 +151,22 @@ export default function Index() {
       }
     })
 
+    const filteredData = UpdatedData.filter((singleRecord: any) => {
+      if (singleRecord.status == appiledFilter && singleRecord.fistName.includes(searchValue)) {
+        return singleRecord
+      }
+    }
+    );
+
     setUserData(UpdatedData)
+    setfilteredData(filteredData)
   }
 
   const userColumns = [
     {
       title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'fistName',
+      key: 'fistName',
       sorter: (a: any, b: any) => {
         return a.name.length - b.name.length;
       },
@@ -145,8 +179,8 @@ export default function Index() {
     },
     {
       title: 'Phone number',
-      dataIndex: 'phone',
-      key: 'phone',
+      dataIndex: 'phoneNumber',
+      key: 'phoneNumber',
     },
     // {
     //     title: 'Created on',
@@ -159,9 +193,15 @@ export default function Index() {
       key: 'status',
       render: (status: any, id: any) => (
         <>
-          {status === `Enable` ? <Switch size="small" onChange={(e) => { handleStatusChange(e, id) }} defaultChecked /> : <Switch size="small" onChange={(e) => { handleStatusChange(e, id) }}  ></Switch>
+          {status === `Enable` ?
+            <><Switch size='default' onChange={(e) => { handleStatusChange(e, id) }}
+              defaultChecked={true} /><Icon type="thunderbolt" /></> :
+            <Switch size="default"
+              onChange={(e) => { handleStatusChange(e, id) }}
+              defaultChecked={false}
+            />
           }{' '}
-          {status}
+          {status ? status : 'Disable'}
         </>
 
       )
@@ -188,6 +228,7 @@ export default function Index() {
     {
       title: 'Organization Name',
       dataIndex: 'name',
+      width: 200,
       key: 'name',
       sorter: (a: any, b: any) => {
         return a.name.length - b.name.length;
@@ -363,6 +404,7 @@ export default function Index() {
             showModal={showModal}
             PageSize={PageSize}
             modifyPageSize={modifyPageSize}
+            handlefilterChange={handlefilterChange}
           // openDrawerHandler={openDrawerHandler}
           // setDrawerInfoHandler={setDrawerInfoHandler}
           ></DynamicTable>

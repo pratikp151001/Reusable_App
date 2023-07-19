@@ -2,6 +2,18 @@
     background-color: green !important;
 }
 
+ul.ant-pagination {
+    width: 90% !important;
+}
+
+/* .ant-switch-checked .ant-switch-handle {
+    color: blue !important;
+    background-color: blue;
+} */
+
+
+
+
 /* .ant-switch-inner-checked{
     background-color: aquamarine !important;
 } */
@@ -12,3 +24,32 @@
 .Cancelbtn {
     width: 5vw !important;
 } */
+/* CustomSwitch.css */
+.ant-switch-checked {
+    background-color: #1890ff;
+    /* Customize the background color when the switch is ON */
+}
+
+
+
+.ant-switch-handle::after {
+    content: 'F';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: red;
+    font-weight: bold;
+
+}
+
+.ant-switch-checked .ant-switch-handle::after {
+    content: "O";
+    /* Text to display inside the moving button when the switch is ON */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: green;
+    font-weight: bold;
+}
