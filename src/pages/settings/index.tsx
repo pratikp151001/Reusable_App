@@ -1,11 +1,11 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import SettingLayout from '../../layout/settings/index'
 import AddInfo from '../../Components/settings/AddInfo/index'
 import DynamicTable from "../../Components/settings/Table/index"
 import { MenuInfo } from 'rc-menu/lib/interface';
 import ConfirmDelete from "../../Components/golbal/DeleteConfirmationModal/index"
 import { Alert, Button, Card, Checkbox, Col, Drawer, Form, Input, Row, Space, Switch } from 'antd';
-import { CloseOutlined, DeleteOutlined, EditOutlined, OrderedListOutlined } from '@ant-design/icons';
+import Icon, { CloseOutlined, DeleteOutlined, EditOutlined, OrderedListOutlined, ThunderboltTwoTone } from '@ant-design/icons';
 // import { AddUserDrawerBody } from '../../constants/AddUserDrawer';
 import AddUserForm from "../../Components/settings/AddUser/index"
 import AddORGForm from '../../Components/settings/AddOrganization/index'
@@ -21,10 +21,13 @@ import preferencesData from '../../constants/PreferenceData'
 import rolesData from '../../constants/RolesData'
 import PermissionData from '../../constants/PermissionData'
 import AddRoleForm from '../../Components/settings/AddRole/index'
+import CustomSwitch from '../../Components/settings/Switch/index'
 
 
 export default function Index() {
   const [UserData, setUserData] = useState(UsersData)
+  const [ORGData, setORGData] = useState(OrgDataSource)
+  const [RoleData, setRoleData] = useState(rolesData)
   const [filteredData, setfilteredData] = useState(UserData)
   const [settingComponent, setSettingComponent] = useState('users');
   const [IsModalOpen, setIsModalOpen] = useState(false)
@@ -33,14 +36,54 @@ export default function Index() {
   const [currentPage, setcurrentPage] = useState(1)
   const [searchValue, setSearchValue] = useState('')
   const [PageSize, setPageSize] = useState(10)
+  const [appiledFilter, setappiledFilter] = useState()
+
+  useEffect(() => {
+    setSearchValue('')
+    setPageSize(10)
+  }, [settingComponent])
+  const handlefilterChange = (e: any) => {
+    setappiledFilter(e)
+    if (settingComponent === 'users') {
+      const filteredData = UserData.filter((singleRecord: any) => {
+        if (singleRecord.status == e && singleRecord.fistName.includes(searchValue)) {
+          return singleRecord
+        }
+      }
+      );
+      setfilteredData(filteredData)
+    }
+    if (settingComponent == "roles") {
+      const filteredData = RoleData.filter((singleRecord: any) => {
+        if (singleRecord.isActive == e && singleRecord.roleName.includes(searchValue)) {
+          return singleRecord
+        }
+      }
+      );
+      setfilteredData(filteredData)
+    }
+
+    console.log("🚀 ~ file: index.tsx:66 ~ handlefilterChange ~ e:", e)
+  }
 
   const handleSidebar = (event: MenuInfo) => {
     console.log('Event: ', event.key);
+    if (event.key == 'users') {
+      setfilteredData(UserData)
+    }
+    if (event.key == 'organizations') {
+      setfilteredData(ORGData)
+    }
+    if (event.key == 'roles') {
+      setfilteredData(RoleData)
+    }
     setSettingComponent(event?.key);
   };
 
   //modifyPageSize
   const modifyPageSize = (size: number) => {
+    console.log("🚀 ~ file: index.tsx:64 ~ modifyPageSize ~ size:", size)
+
     setPageSize(size)
   }
 
@@ -53,17 +96,42 @@ export default function Index() {
   const performSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     console.log("Running Function")
     const { value } = e.target
+    console.log("🚀 ~ file: index.tsx:85 ~ performSearchHandler ~ value:", value)
     setSearchValue(value);
-    const searchedRecords = UserData.filter((singleRecord: any) => {
-      if (singleRecord.name.includes(value)) {
-        return singleRecord
+    if (settingComponent == 'users') {
+      const filteredData = UserData.filter((singleRecord: any) => {
+        if (appiledFilter) {
+          if (singleRecord.status == appiledFilter && singleRecord.fistName.includes(value)) {
+            return singleRecord
+          }
+        }
+        else {
+          if (singleRecord.fistName.includes(value)) {
+            return singleRecord
+          }
+        }
       }
+      );
+      setfilteredData(filteredData)
     }
-    );
-    setfilteredData(searchedRecords)
-    console.log("🚀 ~ file: index.tsx:48 ~ performSearchHandler ~ value:", value)
-
+    if (settingComponent === 'organizations') {
+      const filteredOrg = ORGData.filter((singleRecord: any) => {
+        if (singleRecord.name.includes(value)) {
+          return singleRecord
+        }
+      })
+      setfilteredData(filteredOrg)
+    }
+    if (settingComponent === 'roles') {
+      const filteredOrg = RoleData.filter((singleRecord: any) => {
+        if (singleRecord.roleName.includes(value)) {
+          return singleRecord
+        }
+      })
+      setfilteredData(filteredOrg)
+    }
   }
+
 
   function getAdd() {
     if (
@@ -81,6 +149,9 @@ export default function Index() {
   };
 
   const handleOk = () => {
+    //  const filterUpdatedData=filteredData.filter((item:any,index:any)=>{
+    //   if(){}
+    //  })
     setIsModalOpen(false);
     toastText("Deleted Successfully", 'success')
   };
@@ -103,18 +174,27 @@ export default function Index() {
   function onFinish(values: any): void {
     console.log("🚀 ~ file: index.tsx:27 ~ onFinish ~ values:", values)
     toastText(`${settingComponent} Added Successfully`, 'success')
+    values.id = Math.random()
+    values.status = `Disable`
+
+    setUserData([...UserData, values])
+    setfilteredData([...filteredData, values])
     setOpenDrawer(false)
 
   }
 
   const handleStatusChange = (e: any, data: any) => {
-    console.log("🚀 ~ file: index.tsx:76 ~ handleStatusChange ~ data:", data)
 
     const UpdatedData = UserData.map((item: any, index: any) => {
-      if (item.id == data.id) {
+
+      console.log("🚀 ~ file: index.tsx:192 ~ UpdatedData ~ item:", item.id)
+      if (parseInt(item.id) == parseInt(data.id)) {
+        console.log("VDSGFDS")
         if (e) {
           console.log("first")
+
           return { ...item, status: `Enable` }
+
         }
         {
           return { ...item, status: `Disable` }
@@ -124,15 +204,36 @@ export default function Index() {
         return item
       }
     })
+    console.log("🚀 ~ file: index.tsx:204 ~ UpdatedData ~ UpdatedData:", UpdatedData)
+
+    const filteredData = UpdatedData.filter((singleRecord: any) => {
+      if (appiledFilter) {
+        if (singleRecord.status == appiledFilter && singleRecord.fistName.includes(searchValue)) {
+          return singleRecord
+        }
+      }
+      else {
+        if (singleRecord.fistName.includes(searchValue)) {
+          return singleRecord
+        }
+      }
+    }
+    );
 
     setUserData(UpdatedData)
+    console.log("🚀 ~  file: index.tsx:228 ~ setTimeout ~ filteredData:", filteredData)
+    setTimeout(() => {
+
+      setfilteredData(filteredData)
+    }, 2000)
   }
+
 
   const userColumns = [
     {
       title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'fistName',
+      key: 'fistName',
       sorter: (a: any, b: any) => {
         return a.name.length - b.name.length;
       },
@@ -145,8 +246,8 @@ export default function Index() {
     },
     {
       title: 'Phone number',
-      dataIndex: 'phone',
-      key: 'phone',
+      dataIndex: 'phoneNumber',
+      key: 'phoneNumber',
     },
     // {
     //     title: 'Created on',
@@ -157,20 +258,34 @@ export default function Index() {
       title: "Status",
       dataIndex: 'status',
       key: 'status',
-      render: (status: any, id: any) => (
-        <>
-          {status === `Enable` ? <Switch size="small" onChange={(e) => { handleStatusChange(e, id) }} defaultChecked /> : <Switch size="small" onChange={(e) => { handleStatusChange(e, id) }}  ></Switch>
-          }{' '}
-          {status}
+      render: (status: any, id: any) => {
+        console.log("🚀 ~ file: index.tsx:250 ~ Index ~ id:", id)
+        return <><div className='statusdiv' style={{ display: 'inline-block' }}>
+          {status === `Enable` ?
+            <>
+              <Switch size='default' onChange={(e) => { handleStatusChange(e, id) }}
+                defaultChecked={true} /><Icon type="thunderbolt" />
+              {/* <CustomSwitch checked={status} handleStatusChange={handleStatusChange} id={id.id} /> */}
+            </> :
+            <Switch size="default"
+              onChange={(e) => { handleStatusChange(e, id) }}
+              defaultChecked={false}
+            />
+          }
+          {' '}
+          {status ? status : 'Disable'}
+        </div>
         </>
 
-      )
+      }
     },
     {
       title: "Action",
       dataIndex: 'action',
       key: 'action',
-      render: () => {
+      render: (data: any, abc: any) => {
+        console.log("🚀 ~ file: index.tsx:268 ~ Index ~ abc:", abc)
+        console.log("🚀 ~ file: index.tsx:268 ~ Index ~ data:", data)
         return <Space size={10}>
           <EditOutlined
             className="table-edit-icon"
@@ -178,7 +293,7 @@ export default function Index() {
           />
           <DeleteOutlined
             className="table-delete-icon"
-            onClick={showModal}
+            onClick={() => { showModal() }}
           />
         </Space>
       }
@@ -188,6 +303,7 @@ export default function Index() {
     {
       title: 'Organization Name',
       dataIndex: 'name',
+      width: 200,
       key: 'name',
       sorter: (a: any, b: any) => {
         return a.name.length - b.name.length;
@@ -197,6 +313,7 @@ export default function Index() {
     {
       title: 'Email Address',
       dataIndex: 'email',
+      width: 200,
       key: 'email',
     },
     {
@@ -297,13 +414,15 @@ export default function Index() {
     {
       title: 'Module Name',
       dataIndex: 'moduleName',
-      key: 'moduleName'
+      key: 'moduleName',
+      align: "left",
       // sortDirections: ['descend'],
     },
     {
       title: 'All',
       dataIndex: 'all',
       key: 'all',
+      align: "center",
       render: (all: any, data: any) => {
         return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
         </>
@@ -313,6 +432,7 @@ export default function Index() {
       title: 'View',
       dataIndex: 'view',
       key: 'view',
+      align: "center",
       render: (all: any, data: any) => {
 
         return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
@@ -323,6 +443,7 @@ export default function Index() {
       title: 'Edit',
       dataIndex: 'edit',
       key: 'edit',
+      align: "center",
       render: (all: any, data: any) => {
 
         return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
@@ -333,6 +454,7 @@ export default function Index() {
       title: 'Delete',
       dataIndex: 'delete',
       key: 'delete',
+      align: "center",
       render: (all: any, data: any) => {
 
         return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
@@ -363,34 +485,41 @@ export default function Index() {
             showModal={showModal}
             PageSize={PageSize}
             modifyPageSize={modifyPageSize}
-          // openDrawerHandler={openDrawerHandler}
-          // setDrawerInfoHandler={setDrawerInfoHandler}
+            handlefilterChange={handlefilterChange}
+            // openDrawerHandler={openDrawerHandler}
+            // setDrawerInfoHandler={setDrawerInfoHandler}
+            settingComponent={settingComponent}
           ></DynamicTable>
 
         }
         {settingComponent === 'organizations' &&
           <DynamicTable
-            userDataSource={OrgDataSource}
+            userDataSource={filteredData}
             userColumns={OrgColumns}
             paginationChangeHandler={paginationChangeHandler}
             currentPage={currentPage}
-            totalRecords={OrgDataSource.length}
+            totalRecords={filteredData.length}
             performSearchHandler={performSearchHandler}
             searchValue={searchValue}
             showModal={showModal}
+            settingComponent={settingComponent}
           ></DynamicTable>
 
         }
         {settingComponent === 'roles' &&
           <DynamicTable
-            userDataSource={rolesData}
+            userDataSource={filteredData}
             userColumns={RolesColumns}
             paginationChangeHandler={paginationChangeHandler}
             currentPage={currentPage}
-            totalRecords={OrgDataSource.length}
+            totalRecords={filteredData.length}
             performSearchHandler={performSearchHandler}
             searchValue={searchValue}
             showModal={showModal}
+            PageSize={PageSize}
+            modifyPageSize={modifyPageSize}
+            handlefilterChange={handlefilterChange}
+            settingComponent={settingComponent}
           ></DynamicTable>
         }
         {settingComponent === 'integrations' &&

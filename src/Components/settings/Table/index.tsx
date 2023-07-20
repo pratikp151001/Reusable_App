@@ -8,7 +8,7 @@ import './index.css'
 
 export default function Index(props: any) {
 
-  const { userDataSource, userColumns, permissionDrawer, paginationChangeHandler, currentPage, totalRecords, performSearchHandler, searchValue, PageSize, modifyPageSize } = props
+  const { userDataSource, userColumns, permissionDrawer, paginationChangeHandler, currentPage, totalRecords, performSearchHandler, searchValue, PageSize, modifyPageSize, handlefilterChange, settingComponent } = props
   return (
     <>{permissionDrawer ? `` :
       <div className='searchAndfilter'>
@@ -17,6 +17,8 @@ export default function Index(props: any) {
           searchValue={searchValue}
           modifyPageSize={modifyPageSize}
           PageSize={PageSize}
+          handlefilterChange={handlefilterChange}
+          settingComponent={settingComponent}
         ></SearchAndFilter>
       </div>
     }
