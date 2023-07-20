@@ -21,6 +21,7 @@ import preferencesData from '../../constants/PreferenceData'
 import rolesData from '../../constants/RolesData'
 import PermissionData from '../../constants/PermissionData'
 import AddRoleForm from '../../Components/settings/AddRole/index'
+import CustomSwitch from '../../Components/settings/Switch/index'
 
 
 export default function Index() {
@@ -183,11 +184,17 @@ export default function Index() {
   }
 
   const handleStatusChange = (e: any, data: any) => {
+
     const UpdatedData = UserData.map((item: any, index: any) => {
-      if (item.id == data.id) {
+
+      console.log("🚀 ~ file: index.tsx:192 ~ UpdatedData ~ item:", item.id)
+      if (parseInt(item.id) == parseInt(data.id)) {
+        console.log("VDSGFDS")
         if (e) {
           console.log("first")
+
           return { ...item, status: `Enable` }
+
         }
         {
           return { ...item, status: `Disable` }
@@ -197,6 +204,7 @@ export default function Index() {
         return item
       }
     })
+    console.log("🚀 ~ file: index.tsx:204 ~ UpdatedData ~ UpdatedData:", UpdatedData)
 
     const filteredData = UpdatedData.filter((singleRecord: any) => {
       if (appiledFilter) {
@@ -213,8 +221,13 @@ export default function Index() {
     );
 
     setUserData(UpdatedData)
-    setfilteredData(filteredData)
+    console.log("🚀 ~  file: index.tsx:228 ~ setTimeout ~ filteredData:", filteredData)
+    setTimeout(() => {
+
+      setfilteredData(filteredData)
+    }, 2000)
   }
+
 
   const userColumns = [
     {
@@ -245,20 +258,26 @@ export default function Index() {
       title: "Status",
       dataIndex: 'status',
       key: 'status',
-      render: (status: any, id: any) => (
-        <>
+      render: (status: any, id: any) => {
+        console.log("🚀 ~ file: index.tsx:250 ~ Index ~ id:", id)
+        return <><div className='statusdiv' style={{ display: 'inline-block' }}>
           {status === `Enable` ?
-            <><Switch size='default' onChange={(e) => { handleStatusChange(e, id) }}
-              defaultChecked={true} /><Icon type="thunderbolt" /></> :
+            <>
+              <Switch size='default' onChange={(e) => { handleStatusChange(e, id) }}
+                defaultChecked={true} /><Icon type="thunderbolt" />
+              {/* <CustomSwitch checked={status} handleStatusChange={handleStatusChange} id={id.id} /> */}
+            </> :
             <Switch size="default"
               onChange={(e) => { handleStatusChange(e, id) }}
               defaultChecked={false}
             />
-          }{' '}
+          }
+          {' '}
           {status ? status : 'Disable'}
+        </div>
         </>
 
-      )
+      }
     },
     {
       title: "Action",
@@ -395,13 +414,15 @@ export default function Index() {
     {
       title: 'Module Name',
       dataIndex: 'moduleName',
-      key: 'moduleName'
+      key: 'moduleName',
+      align: "left",
       // sortDirections: ['descend'],
     },
     {
       title: 'All',
       dataIndex: 'all',
       key: 'all',
+      align: "center",
       render: (all: any, data: any) => {
         return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
         </>
@@ -411,6 +432,7 @@ export default function Index() {
       title: 'View',
       dataIndex: 'view',
       key: 'view',
+      align: "center",
       render: (all: any, data: any) => {
 
         return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
@@ -421,6 +443,7 @@ export default function Index() {
       title: 'Edit',
       dataIndex: 'edit',
       key: 'edit',
+      align: "center",
       render: (all: any, data: any) => {
 
         return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
@@ -431,6 +454,7 @@ export default function Index() {
       title: 'Delete',
       dataIndex: 'delete',
       key: 'delete',
+      align: "center",
       render: (all: any, data: any) => {
 
         return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
