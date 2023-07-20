@@ -1,0 +1,11 @@
+/* .ant-layout-header {
+    padding-left: 2rem;
+    padding-right: 0rem;
+} */
+.settingButton {
+    margin-right: 30px;
+}
+
+.settingButton:hover {
+    cursor: pointer;
+}
