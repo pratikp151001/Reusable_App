@@ -1,8 +1,6 @@
 import {
   MailOutlined,
-  LockOutlined,
-  UserOutlined,
-  PhoneOutlined,
+  LockOutlined
 } from '@ant-design/icons';
 
 const loginFormData = [

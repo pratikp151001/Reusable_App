@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
-import { Layout, Space } from 'antd';
+
+import { Space } from 'antd';
 import { Header } from 'antd/es/layout/layout';
 import { CloseOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';

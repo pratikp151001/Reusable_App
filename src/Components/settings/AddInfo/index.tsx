@@ -1,8 +1,4 @@
-import { CloseOutlined } from '@ant-design/icons'
-import { Button, Col, Drawer, Form, Input, Row, Space } from 'antd'
-import React, { useState } from 'react'
-import { AddUserDrawerBody } from '../../../constants/AddUserDrawer'
-import DynamicTable from '../../../Components/settings/Table/index'
+import { Button, Row } from 'antd'
 import "./index.css"
 
 export default function Index(props: any) {

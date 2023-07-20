@@ -4,8 +4,8 @@ import AddInfo from '../../Components/settings/AddInfo/index'
 import DynamicTable from "../../Components/settings/Table/index"
 import { MenuInfo } from 'rc-menu/lib/interface';
 import ConfirmDelete from "../../Components/golbal/DeleteConfirmationModal/index"
-import { Alert, Button, Card, Checkbox, Col, Drawer, Form, Input, Row, Space, Switch } from 'antd';
-import Icon, { CloseOutlined, DeleteOutlined, EditOutlined, OrderedListOutlined, ThunderboltTwoTone } from '@ant-design/icons';
+import { Alert, Button, Checkbox, Col, Drawer, Form, Row, Space, Switch } from 'antd';
+import Icon, { CloseOutlined, DeleteOutlined, EditOutlined, OrderedListOutlined } from '@ant-design/icons';
 // import { AddUserDrawerBody } from '../../constants/AddUserDrawer';
 import AddUserForm from "../../Components/settings/AddUser/index"
 import AddORGForm from '../../Components/settings/AddOrganization/index'
@@ -21,7 +21,7 @@ import preferencesData from '../../constants/PreferenceData'
 import rolesData from '../../constants/RolesData'
 import PermissionData from '../../constants/PermissionData'
 import AddRoleForm from '../../Components/settings/AddRole/index'
-import CustomSwitch from '../../Components/settings/Switch/index'
+// import CustomSwitch from '../../Components/settings/Switch/index'
 
 
 export default function Index() {
@@ -46,16 +46,16 @@ export default function Index() {
     setappiledFilter(e)
     if (settingComponent === 'users') {
       const filteredData = UserData.filter((singleRecord: any) => {
-        if (singleRecord.status == e && singleRecord.fistName.includes(searchValue)) {
+        if (singleRecord.status === e && singleRecord.fistName.includes(searchValue)) {
           return singleRecord
         }
       }
       );
       setfilteredData(filteredData)
     }
-    if (settingComponent == "roles") {
+    if (settingComponent === "roles") {
       const filteredData = RoleData.filter((singleRecord: any) => {
-        if (singleRecord.isActive == e && singleRecord.roleName.includes(searchValue)) {
+        if (singleRecord.isActive === e && singleRecord.roleName.includes(searchValue)) {
           return singleRecord
         }
       }
@@ -68,13 +68,13 @@ export default function Index() {
 
   const handleSidebar = (event: MenuInfo) => {
     console.log('Event: ', event.key);
-    if (event.key == 'users') {
+    if (event.key === 'users') {
       setfilteredData(UserData)
     }
-    if (event.key == 'organizations') {
+    if (event.key === 'organizations') {
       setfilteredData(ORGData)
     }
-    if (event.key == 'roles') {
+    if (event.key === 'roles') {
       setfilteredData(RoleData)
     }
     setSettingComponent(event?.key);
@@ -98,10 +98,10 @@ export default function Index() {
     const { value } = e.target
     console.log("🚀 ~ file: index.tsx:85 ~ performSearchHandler ~ value:", value)
     setSearchValue(value);
-    if (settingComponent == 'users') {
+    if (settingComponent === 'users') {
       const filteredData = UserData.filter((singleRecord: any) => {
         if (appiledFilter) {
-          if (singleRecord.status == appiledFilter && singleRecord.fistName.includes(value)) {
+          if (singleRecord.status === appiledFilter && singleRecord.fistName.includes(value)) {
             return singleRecord
           }
         }
@@ -188,11 +188,9 @@ export default function Index() {
     const UpdatedData = UserData.map((item: any, index: any) => {
 
       console.log("🚀 ~ file: index.tsx:192 ~ UpdatedData ~ item:", item.id)
-      if (parseInt(item.id) == parseInt(data.id)) {
+      if (parseInt(item.id) === parseInt(data.id)) {
         console.log("VDSGFDS")
         if (e) {
-          console.log("first")
-
           return { ...item, status: `Enable` }
 
         }
@@ -208,7 +206,7 @@ export default function Index() {
 
     const filteredData = UpdatedData.filter((singleRecord: any) => {
       if (appiledFilter) {
-        if (singleRecord.status == appiledFilter && singleRecord.fistName.includes(searchValue)) {
+        if (singleRecord.status === appiledFilter && singleRecord.fistName.includes(searchValue)) {
           return singleRecord
         }
       }
@@ -424,7 +422,7 @@ export default function Index() {
       key: 'all',
       align: "center",
       render: (all: any, data: any) => {
-        return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
+        return <> {data.moduleName !== "Admin" ? <Checkbox></Checkbox> : ``}
         </>
       }
     },
@@ -435,7 +433,7 @@ export default function Index() {
       align: "center",
       render: (all: any, data: any) => {
 
-        return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
+        return <> {data.moduleName !== "Admin" ? <Checkbox></Checkbox> : ``}
         </>
       }
     },
@@ -446,7 +444,7 @@ export default function Index() {
       align: "center",
       render: (all: any, data: any) => {
 
-        return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
+        return <> {data.moduleName !== "Admin" ? <Checkbox></Checkbox> : ``}
         </>
       }
     },
@@ -457,7 +455,7 @@ export default function Index() {
       align: "center",
       render: (all: any, data: any) => {
 
-        return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
+        return <> {data.moduleName !== "Admin" ? <Checkbox></Checkbox> : ``}
         </>
       }
     },

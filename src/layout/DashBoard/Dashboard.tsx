@@ -1,8 +1,7 @@
 import { Layout } from 'antd'
 import Sider from '../../Components/Dashboard/Sidebar/index'
-import { Content, Footer } from 'antd/es/layout/layout'
+import { Content } from 'antd/es/layout/layout'
 import Navbar from '../../Components/Dashboard/Navbar/index'
-import React from 'react'
 import './index.css'
 
 export default function Dashboard() {

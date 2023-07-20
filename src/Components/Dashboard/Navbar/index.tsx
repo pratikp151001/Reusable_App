@@ -1,4 +1,4 @@
-import { Avatar, Button, Col, Row } from 'antd'
+import { Avatar, Col, Row } from 'antd'
 import { Header } from 'antd/es/layout/layout'
 import React from 'react'
 import './index.css'

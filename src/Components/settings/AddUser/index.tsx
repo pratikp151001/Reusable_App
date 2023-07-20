@@ -1,4 +1,4 @@
-import { Input, Row, Col, Button, Form } from 'antd'
+import { Input, Form } from 'antd'
 import React from 'react'
 import { AddUserDrawerBody } from '../../../constants/AddUserDrawer'
 
@@ -25,7 +25,7 @@ export default function Index() {
               wrapperCol={{ span: 24 }}
               rules={item?.rules as []}
             >
-              {item?.type == 'number' ? (
+              {item?.type === 'number' ? (
                 <Input
                   placeholder={item?.placeholder}
                   size="large"

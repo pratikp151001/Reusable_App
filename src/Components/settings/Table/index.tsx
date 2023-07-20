@@ -1,6 +1,4 @@
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
-import { Space, Table } from 'antd'
-import Column from 'antd/es/table/Column'
+import { Table } from 'antd'
 import "antd/es/table/style"
 import SearchAndFilter from '../../settings/SearchAndFilter/index'
 import './index.css'

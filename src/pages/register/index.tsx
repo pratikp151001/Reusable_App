@@ -9,7 +9,7 @@ import { registerFormData } from "../../constants/RegistrationForm"
 import { Link } from 'react-router-dom'
 import { LeftOutlined } from '@ant-design/icons'
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 export default function index() {
   const contentStyle: React.CSSProperties = {
@@ -22,8 +22,8 @@ export default function index() {
 
 
   function onFinish(values: any) {
-   console.log("🚀 ~ file: index.tsx:24 ~ onFinish ~ values:", values)
-   
+    console.log("🚀 ~ file: index.tsx:24 ~ onFinish ~ values:", values)
+
   }
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
@@ -45,7 +45,7 @@ export default function index() {
                 style={{ maxWidth: 600 }}
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
-                 onFinishFailed={onFinishFailed}
+                onFinishFailed={onFinishFailed}
                 autoComplete="off"
               >
                 <Image width={'15%'} src={AnimalImage} preview={false} />
@@ -71,12 +71,12 @@ export default function index() {
                         rules={item?.rules as []}
                         wrapperCol={{ span: 24 }}
                       >
-                        {item?.type == 'password' ? (
+                        {item?.type === 'password' ? (
                           <Input.Password
                             placeholder={item?.placeholder}
                             size="large"
                           />
-                        ) : item?.type == 'number' ? (
+                        ) : item?.type === 'number' ? (
                           <Input
                             placeholder={item?.placeholder}
                             size="large"
@@ -107,32 +107,32 @@ export default function index() {
                 {/* <div > */}
                 <Row justify="space-evenly" className='SignInOptions'>
                   <Col xs={24} md={24} lg={8} sm={24}>
-                  <Button 
-                  className='Intuit'
-                    type="primary"
-                    block={true}
-                    size='large'
-                    style={{backgroundColor:'#0B78C2'}}
-                  >
-                    Sign In With Intuit
-                  </Button>
+                    <Button
+                      className='Intuit'
+                      type="primary"
+                      block={true}
+                      size='large'
+                      style={{ backgroundColor: '#0B78C2' }}
+                    >
+                      Sign In With Intuit
+                    </Button>
                   </Col>
                   <Col xs={24} md={24} lg={8} sm={24} >
-                  <Button 
-                  className='Xero'
-                    block={true}
-                    size='large'
-                  ><Image src={XeroImage} width={'25px'}/>
-                    Sign In With Xero
-                  </Button>
+                    <Button
+                      className='Xero'
+                      block={true}
+                      size='large'
+                    ><Image src={XeroImage} width={'25px'} />
+                      Sign In With Xero
+                    </Button>
                   </Col>
                   {/* </div> */}
-                  </Row>
-              <p style={{color:"black"}}>Already have Account?<Link to={'/login'}>Login Now!</Link></p>
+                </Row>
+                <p style={{ color: "black" }}>Already have Account?<Link to={'/login'}>Login Now!</Link></p>
               </Form>
-              </Col>
+            </Col>
 
-                  
+
           </Row>
 
         </Content>
