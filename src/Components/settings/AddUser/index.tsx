@@ -23,19 +23,9 @@ export default function Index() {
             <Form.Item className='formItem'
               name={item?.name}
               wrapperCol={{ span: 24 }}
-              rules={[
-                {
-                  required: true,
-                  message: item.errorMessage,
-                },
-              ]}
+              rules={item?.rules as []}
             >
-              {item?.type == 'password' ? (
-                <Input.Password
-                  placeholder={item?.placeholder}
-                  size="large"
-                />
-              ) : item?.type == 'number' ? (
+              {item?.type == 'number' ? (
                 <Input
                   placeholder={item?.placeholder}
                   size="large"

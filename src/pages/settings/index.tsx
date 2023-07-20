@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import SettingLayout from '../../layout/settings/index'
 import AddInfo from '../../Components/settings/AddInfo/index'
 import DynamicTable from "../../Components/settings/Table/index"
@@ -25,6 +25,8 @@ import AddRoleForm from '../../Components/settings/AddRole/index'
 
 export default function Index() {
   const [UserData, setUserData] = useState(UsersData)
+  const [ORGData, setORGData] = useState(OrgDataSource)
+  const [RoleData, setRoleData] = useState(rolesData)
   const [filteredData, setfilteredData] = useState(UserData)
   const [settingComponent, setSettingComponent] = useState('users');
   const [IsModalOpen, setIsModalOpen] = useState(false)
@@ -35,32 +37,52 @@ export default function Index() {
   const [PageSize, setPageSize] = useState(10)
   const [appiledFilter, setappiledFilter] = useState()
 
-
+  useEffect(() => {
+    setSearchValue('')
+    setPageSize(10)
+  }, [settingComponent])
   const handlefilterChange = (e: any) => {
     setappiledFilter(e)
-    const filteredData = UserData.filter((singleRecord: any) => {
-      if (singleRecord.status == e && singleRecord.fistName.includes(searchValue)) {
-        return singleRecord
+    if (settingComponent === 'users') {
+      const filteredData = UserData.filter((singleRecord: any) => {
+        if (singleRecord.status == e && singleRecord.fistName.includes(searchValue)) {
+          return singleRecord
+        }
       }
+      );
+      setfilteredData(filteredData)
     }
-    );
-    // const filteredData = searchedRecords.filter((item: any, index: any) => {
+    if (settingComponent == "roles") {
+      const filteredData = RoleData.filter((singleRecord: any) => {
+        if (singleRecord.isActive == e && singleRecord.roleName.includes(searchValue)) {
+          return singleRecord
+        }
+      }
+      );
+      setfilteredData(filteredData)
+    }
 
-    //   if (item.fistName.includes(searchValue)) {
-    //     return item
-    //   }
-    // }
-    // )
-    setfilteredData(filteredData)
+    console.log("🚀 ~ file: index.tsx:66 ~ handlefilterChange ~ e:", e)
   }
 
   const handleSidebar = (event: MenuInfo) => {
     console.log('Event: ', event.key);
+    if (event.key == 'users') {
+      setfilteredData(UserData)
+    }
+    if (event.key == 'organizations') {
+      setfilteredData(ORGData)
+    }
+    if (event.key == 'roles') {
+      setfilteredData(RoleData)
+    }
     setSettingComponent(event?.key);
   };
 
   //modifyPageSize
   const modifyPageSize = (size: number) => {
+    console.log("🚀 ~ file: index.tsx:64 ~ modifyPageSize ~ size:", size)
+
     setPageSize(size)
   }
 
@@ -73,18 +95,40 @@ export default function Index() {
   const performSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     console.log("Running Function")
     const { value } = e.target
+    console.log("🚀 ~ file: index.tsx:85 ~ performSearchHandler ~ value:", value)
     setSearchValue(value);
-    const filteredData = UserData.filter((singleRecord: any) => {
-      if (singleRecord.status == appiledFilter && singleRecord.fistName.includes(value)) {
-        return singleRecord
+    if (settingComponent == 'users') {
+      const filteredData = UserData.filter((singleRecord: any) => {
+        if (appiledFilter) {
+          if (singleRecord.status == appiledFilter && singleRecord.fistName.includes(value)) {
+            return singleRecord
+          }
+        }
+        else {
+          if (singleRecord.fistName.includes(value)) {
+            return singleRecord
+          }
+        }
       }
+      );
+      setfilteredData(filteredData)
     }
-    );
-
-    setfilteredData(filteredData)
-    console.log("🚀 ~ file: index.tsx:48 ~ performSearchHandler ~ value:", filteredData)
-
-
+    if (settingComponent === 'organizations') {
+      const filteredOrg = ORGData.filter((singleRecord: any) => {
+        if (singleRecord.name.includes(value)) {
+          return singleRecord
+        }
+      })
+      setfilteredData(filteredOrg)
+    }
+    if (settingComponent === 'roles') {
+      const filteredOrg = RoleData.filter((singleRecord: any) => {
+        if (singleRecord.roleName.includes(value)) {
+          return singleRecord
+        }
+      })
+      setfilteredData(filteredOrg)
+    }
   }
 
 
@@ -104,6 +148,9 @@ export default function Index() {
   };
 
   const handleOk = () => {
+    //  const filterUpdatedData=filteredData.filter((item:any,index:any)=>{
+    //   if(){}
+    //  })
     setIsModalOpen(false);
     toastText("Deleted Successfully", 'success')
   };
@@ -152,8 +199,15 @@ export default function Index() {
     })
 
     const filteredData = UpdatedData.filter((singleRecord: any) => {
-      if (singleRecord.status == appiledFilter && singleRecord.fistName.includes(searchValue)) {
-        return singleRecord
+      if (appiledFilter) {
+        if (singleRecord.status == appiledFilter && singleRecord.fistName.includes(searchValue)) {
+          return singleRecord
+        }
+      }
+      else {
+        if (singleRecord.fistName.includes(searchValue)) {
+          return singleRecord
+        }
       }
     }
     );
@@ -210,7 +264,9 @@ export default function Index() {
       title: "Action",
       dataIndex: 'action',
       key: 'action',
-      render: () => {
+      render: (data: any, abc: any) => {
+        console.log("🚀 ~ file: index.tsx:268 ~ Index ~ abc:", abc)
+        console.log("🚀 ~ file: index.tsx:268 ~ Index ~ data:", data)
         return <Space size={10}>
           <EditOutlined
             className="table-edit-icon"
@@ -218,7 +274,7 @@ export default function Index() {
           />
           <DeleteOutlined
             className="table-delete-icon"
-            onClick={showModal}
+            onClick={() => { showModal() }}
           />
         </Space>
       }
@@ -238,6 +294,7 @@ export default function Index() {
     {
       title: 'Email Address',
       dataIndex: 'email',
+      width: 200,
       key: 'email',
     },
     {
@@ -405,34 +462,40 @@ export default function Index() {
             PageSize={PageSize}
             modifyPageSize={modifyPageSize}
             handlefilterChange={handlefilterChange}
-          // openDrawerHandler={openDrawerHandler}
-          // setDrawerInfoHandler={setDrawerInfoHandler}
+            // openDrawerHandler={openDrawerHandler}
+            // setDrawerInfoHandler={setDrawerInfoHandler}
+            settingComponent={settingComponent}
           ></DynamicTable>
 
         }
         {settingComponent === 'organizations' &&
           <DynamicTable
-            userDataSource={OrgDataSource}
+            userDataSource={filteredData}
             userColumns={OrgColumns}
             paginationChangeHandler={paginationChangeHandler}
             currentPage={currentPage}
-            totalRecords={OrgDataSource.length}
+            totalRecords={filteredData.length}
             performSearchHandler={performSearchHandler}
             searchValue={searchValue}
             showModal={showModal}
+            settingComponent={settingComponent}
           ></DynamicTable>
 
         }
         {settingComponent === 'roles' &&
           <DynamicTable
-            userDataSource={rolesData}
+            userDataSource={filteredData}
             userColumns={RolesColumns}
             paginationChangeHandler={paginationChangeHandler}
             currentPage={currentPage}
-            totalRecords={OrgDataSource.length}
+            totalRecords={filteredData.length}
             performSearchHandler={performSearchHandler}
             searchValue={searchValue}
             showModal={showModal}
+            PageSize={PageSize}
+            modifyPageSize={modifyPageSize}
+            handlefilterChange={handlefilterChange}
+            settingComponent={settingComponent}
           ></DynamicTable>
         }
         {settingComponent === 'integrations' &&

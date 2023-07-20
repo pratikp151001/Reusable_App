@@ -33,23 +33,35 @@ ul.ant-pagination {
 
 
 .ant-switch-handle::after {
-    content: 'F';
+    content: '';
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     color: red;
     font-weight: bold;
+    height: 100%;
+    width: 100%;
+    background-image: url(../../../public/assets/images/logos/false.png);
+    background-repeat: no-repeat;
+    background-size: 11px;
+    background-position: center center;
 
 }
 
 .ant-switch-checked .ant-switch-handle::after {
-    content: "O";
+    content: "";
     /* Text to display inside the moving button when the switch is ON */
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     color: green;
+    height: 100%;
+    width: 100%;
     font-weight: bold;
+    background-image: url(../../../public/assets/images/logos/true.png);
+    background-repeat: no-repeat;
+    background-size: 11px 9px;
+    background-position: center center;
 }

@@ -7,6 +7,12 @@ export const AddUserDrawerBody = [
     defaultValue: '',
     errorMessage: 'Please enter the first name',
     placeholder: 'Enter your first name',
+    rules: [
+      {
+        required: true,
+        message: 'Please input your first name!',
+      },
+    ],
   },
   {
     title: 'Last Name',
@@ -16,6 +22,12 @@ export const AddUserDrawerBody = [
     defaultValue: '',
     errorMessage: 'Please enter the last name',
     placeholder: 'Enter your last name',
+    rules: [
+      {
+        required: true,
+        message: 'Please input your first name!',
+      },
+    ],
   },
   {
     title: 'Email Address',
@@ -25,6 +37,18 @@ export const AddUserDrawerBody = [
     defaultValue: '',
     errorMessage: 'Please enter the email address',
     placeholder: 'Enter your email address',
+    rules: [
+      {
+        required: true,
+        message: 'Please input your email address!',
+        validateTrigger: 'onSubmit',
+      },
+      {
+        type: 'email',
+        message: 'The input is not valid E-mail!',
+        validateTrigger: 'onSubmit',
+      },
+    ],
   },
   {
     title: 'Phone Number',
@@ -34,5 +58,18 @@ export const AddUserDrawerBody = [
     defaultValue: '',
     errorMessage: 'Please enter the phone number',
     placeholder: 'Enter your phone number',
+    rules: [
+      ({ getFieldValue }: any) => ({
+        validator() {
+          const re = /^\d{10}$/;
+          if (re.test(getFieldValue('phoneNumber'))) {
+            return Promise.resolve();
+          } else {
+            return Promise.reject(new Error('Invalid phoneNumber'));
+          }
+        },
+        validateTrigger: 'onSubmit',
+      }),
+    ],
   },
 ]
