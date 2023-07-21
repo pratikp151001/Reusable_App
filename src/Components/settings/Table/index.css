@@ -25,3 +25,23 @@
 .ant-table-cell {
     padding: 1% 2% !important;
 }
+
+.ant-pagination {
+    margin-top: 1rem !important;
+}
+
+.ant-pagination .ant-pagination-item,
+.ant-pagination li {
+    border: 1px solid rgb(124, 124, 124);
+    border-radius: 50% !important;
+}
+
+.ant-pagination-item-active {
+    border: 1px solid #286FD1 !important;
+    background-color: #286FD1 !important;
+    color: #FFF !important;
+}
+
+.ant-pagination-item-active a {
+    color: #FFF !important;
+}

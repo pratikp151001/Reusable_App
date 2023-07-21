@@ -49,6 +49,9 @@ export default function Index() {
         if (singleRecord.status === e && singleRecord.fistName.includes(searchValue)) {
           return singleRecord
         }
+        else {
+          return null
+        }
       }
       );
       setfilteredData(filteredData)
@@ -57,6 +60,9 @@ export default function Index() {
       const filteredData = RoleData.filter((singleRecord: any) => {
         if (singleRecord.isActive === e && singleRecord.roleName.includes(searchValue)) {
           return singleRecord
+        }
+        else {
+          return null
         }
       }
       );
@@ -104,10 +110,16 @@ export default function Index() {
           if (singleRecord.status === appiledFilter && singleRecord.fistName.includes(value)) {
             return singleRecord
           }
+          else {
+            return null
+          }
         }
         else {
           if (singleRecord.fistName.includes(value)) {
             return singleRecord
+          }
+          else {
+            return null
           }
         }
       }
@@ -119,6 +131,9 @@ export default function Index() {
         if (singleRecord.name.includes(value)) {
           return singleRecord
         }
+        else {
+          return null
+        }
       })
       setfilteredData(filteredOrg)
     }
@@ -126,6 +141,9 @@ export default function Index() {
       const filteredOrg = RoleData.filter((singleRecord: any) => {
         if (singleRecord.roleName.includes(value)) {
           return singleRecord
+        }
+        else {
+          return null
         }
       })
       setfilteredData(filteredOrg)
@@ -186,10 +204,8 @@ export default function Index() {
   const handleStatusChange = (e: any, data: any) => {
 
     const UpdatedData = UserData.map((item: any, index: any) => {
-
-      console.log("🚀 ~ file: index.tsx:192 ~ UpdatedData ~ item:", item.id)
       if (parseInt(item.id) === parseInt(data.id)) {
-        console.log("VDSGFDS")
+
         if (e) {
           return { ...item, status: `Enable` }
 
@@ -209,21 +225,22 @@ export default function Index() {
         if (singleRecord.status === appiledFilter && singleRecord.fistName.includes(searchValue)) {
           return singleRecord
         }
+        else {
+          return null
+        }
       }
       else {
         if (singleRecord.fistName.includes(searchValue)) {
           return singleRecord
         }
+        else {
+          return null
+        }
       }
     }
     );
-
     setUserData(UpdatedData)
-    console.log("🚀 ~  file: index.tsx:228 ~ setTimeout ~ filteredData:", filteredData)
-    setTimeout(() => {
-
-      setfilteredData(filteredData)
-    }, 2000)
+    setfilteredData(filteredData)
   }
 
 
@@ -233,7 +250,7 @@ export default function Index() {
       dataIndex: 'fistName',
       key: 'fistName',
       sorter: (a: any, b: any) => {
-        return a.name.length - b.name.length;
+        return a.fistName.length - b.fistName.length;
       },
       // sortDirections: ['descend'],
     },
@@ -486,8 +503,7 @@ export default function Index() {
             handlefilterChange={handlefilterChange}
             // openDrawerHandler={openDrawerHandler}
             // setDrawerInfoHandler={setDrawerInfoHandler}
-            settingComponent={settingComponent}
-          ></DynamicTable>
+            settingComponent={settingComponent} permissionDrawer={false}          ></DynamicTable>
 
         }
         {settingComponent === 'organizations' &&
@@ -501,6 +517,7 @@ export default function Index() {
             searchValue={searchValue}
             showModal={showModal}
             settingComponent={settingComponent}
+            permissionDrawer={false}
           ></DynamicTable>
 
         }
@@ -518,6 +535,7 @@ export default function Index() {
             modifyPageSize={modifyPageSize}
             handlefilterChange={handlefilterChange}
             settingComponent={settingComponent}
+            permissionDrawer={false}
           ></DynamicTable>
         }
         {settingComponent === 'integrations' &&

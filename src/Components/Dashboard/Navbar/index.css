@@ -3,9 +3,13 @@
     padding-right: 0rem;
 } */
 .settingButton {
-    margin-right: 30px;
+    margin-right: 25px;
 }
 
 .settingButton:hover {
     cursor: pointer;
+}
+
+.UserName {
+    margin-right: 30px !important;
 }

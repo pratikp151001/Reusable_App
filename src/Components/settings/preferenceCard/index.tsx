@@ -1,7 +1,8 @@
 import { Card, Col, Row, Switch } from 'antd'
-import React from 'react'
+import PreferenceCardProps from './types'
+import React, { FC } from 'react'
 
-export default function index(props: any) {
+const PreferenceCard: FC<PreferenceCardProps> = (props) => {
     const { preferencesData } = props
     return (
         <>
@@ -20,3 +21,4 @@ export default function index(props: any) {
         </>
     )
 }
+export default PreferenceCard

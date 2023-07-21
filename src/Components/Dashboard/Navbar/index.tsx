@@ -2,7 +2,7 @@ import { Avatar, Col, Row } from 'antd'
 import { Header } from 'antd/es/layout/layout'
 import React from 'react'
 import './index.css'
-import { Image } from 'antd'
+import { Image, Typography } from 'antd'
 import { LoginOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 
@@ -22,15 +22,23 @@ export default function Index() {
                     <div className='settingButton' >
                         <Image preview={false} onClick={OpenSettting} src={'/assets/images/logos/Setting.svg'} />
                     </div>
-                    <div style={{ marginRight: '10px' }}><Avatar style={{ backgroundColor: '#286FD1', verticalAlign: 'middle' }} size="large" gap={3}>
-                        {<>{'TP'}</>}
-                    </Avatar></div>
-                    <Row >
-                        <Col lg={24} style={{ height: '20px', justifyItems: 'center', alignItems: 'left', display: 'flex', fontWeight: 800 }}>ghdrfh
-                        </Col>
-                        <Col lg={24}>ghdrfh
-                        </Col>
-                    </Row>
+                    <div style={{ marginRight: '5px' }}>
+                        <Avatar style={{ backgroundColor: '#286FD1', verticalAlign: 'middle' }} size="large" gap={3}>
+                            {<>{'TP'}</>}
+                        </Avatar></div>
+                    <div className='UserName' >
+                        <Typography style={{ height: '30px', fontWeight: 700, textAlign: 'start', paddingTop: '10px' }}>Thonos Peterson
+                        </Typography>
+                        <Typography style={{ height: '30px', fontWeight: 400, paddingBottom: '10px', textAlign: 'start', fontSize: '12px' }}>My Profile
+                        </Typography>
+                        {/* <Col lg={24}>ghdrfh
+                        </Col> */}
+                    </div>
+                    {/* <div className="User" style={{ display: 'flex', flexDirection: 'column', maxWidth: '64px' }}>
+                        <span>dsj</span>
+                        <br />
+                        <span>dscs</span>
+                    </div> */}
                     <LoginOutlined style={{ fontSize: '25px', marginRight: '10px' }} />
                 </div>
                 </Col>

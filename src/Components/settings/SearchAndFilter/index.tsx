@@ -1,10 +1,11 @@
 import { SearchOutlined } from '@ant-design/icons'
 import { Row, Col, InputNumber, Space, Input, Select } from 'antd'
+import SearchAndFilterProps from './types'
 import React from 'react'
 
 export default function index(props: any) {
     const { performSearchHandler, searchValue, modifyPageSize, PageSize, handlefilterChange, settingComponent } = props
-    console.log("🚀 ~ file: index.tsx:7 ~ index ~ settingComponent:", settingComponent)
+
     return (
         <div >
             <div >
