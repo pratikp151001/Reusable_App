@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import {
   MoneyCollectOutlined,
   SettingOutlined,
@@ -8,9 +8,10 @@ import {
 } from '@ant-design/icons';
 import Sider from 'antd/es/layout/Sider'
 import { Button, Menu, MenuProps } from 'antd';
+import SidebarProps from './types';
 import "./index.css"
 
-export default function Index(props: any) {
+const Index: FC<SidebarProps> = (props) => {
 
   const { handleSidebar } = props
   const items: MenuProps['items'] = [
@@ -80,3 +81,4 @@ export default function Index(props: any) {
 
   )
 }
+export default Index

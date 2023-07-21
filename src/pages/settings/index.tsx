@@ -4,8 +4,8 @@ import AddInfo from '../../Components/settings/AddInfo/index'
 import DynamicTable from "../../Components/settings/Table/index"
 import { MenuInfo } from 'rc-menu/lib/interface';
 import ConfirmDelete from "../../Components/golbal/DeleteConfirmationModal/index"
-import { Alert, Button, Card, Checkbox, Col, Drawer, Form, Input, Row, Space, Switch } from 'antd';
-import Icon, { CloseOutlined, DeleteOutlined, EditOutlined, OrderedListOutlined, ThunderboltTwoTone } from '@ant-design/icons';
+import { Alert, Button, Checkbox, Col, Drawer, Form, Row, Space, Switch, Image } from 'antd';
+import Icon, { CloseOutlined, DeleteOutlined, EditOutlined, OrderedListOutlined } from '@ant-design/icons';
 // import { AddUserDrawerBody } from '../../constants/AddUserDrawer';
 import AddUserForm from "../../Components/settings/AddUser/index"
 import AddORGForm from '../../Components/settings/AddOrganization/index'
@@ -21,7 +21,7 @@ import preferencesData from '../../constants/PreferenceData'
 import rolesData from '../../constants/RolesData'
 import PermissionData from '../../constants/PermissionData'
 import AddRoleForm from '../../Components/settings/AddRole/index'
-import CustomSwitch from '../../Components/settings/Switch/index'
+// import CustomSwitch from '../../Components/settings/Switch/index'
 
 
 export default function Index() {
@@ -37,26 +37,34 @@ export default function Index() {
   const [searchValue, setSearchValue] = useState('')
   const [PageSize, setPageSize] = useState(10)
   const [appiledFilter, setappiledFilter] = useState()
+  const [isEdit, setisEdit] = useState(false)
 
   useEffect(() => {
     setSearchValue('')
     setPageSize(10)
+    setcurrentPage(1)
   }, [settingComponent])
   const handlefilterChange = (e: any) => {
     setappiledFilter(e)
     if (settingComponent === 'users') {
       const filteredData = UserData.filter((singleRecord: any) => {
-        if (singleRecord.status == e && singleRecord.fistName.includes(searchValue)) {
+        if (singleRecord.status === e && singleRecord.fistName.includes(searchValue)) {
           return singleRecord
+        }
+        else {
+          return null
         }
       }
       );
       setfilteredData(filteredData)
     }
-    if (settingComponent == "roles") {
+    if (settingComponent === "roles") {
       const filteredData = RoleData.filter((singleRecord: any) => {
-        if (singleRecord.isActive == e && singleRecord.roleName.includes(searchValue)) {
+        if (singleRecord.isActive === e && singleRecord.roleName.includes(searchValue)) {
           return singleRecord
+        }
+        else {
+          return null
         }
       }
       );
@@ -68,13 +76,13 @@ export default function Index() {
 
   const handleSidebar = (event: MenuInfo) => {
     console.log('Event: ', event.key);
-    if (event.key == 'users') {
+    if (event.key === 'users') {
       setfilteredData(UserData)
     }
-    if (event.key == 'organizations') {
+    if (event.key === 'organizations') {
       setfilteredData(ORGData)
     }
-    if (event.key == 'roles') {
+    if (event.key === 'roles') {
       setfilteredData(RoleData)
     }
     setSettingComponent(event?.key);
@@ -98,16 +106,22 @@ export default function Index() {
     const { value } = e.target
     console.log("🚀 ~ file: index.tsx:85 ~ performSearchHandler ~ value:", value)
     setSearchValue(value);
-    if (settingComponent == 'users') {
+    if (settingComponent === 'users') {
       const filteredData = UserData.filter((singleRecord: any) => {
         if (appiledFilter) {
-          if (singleRecord.status == appiledFilter && singleRecord.fistName.includes(value)) {
+          if (singleRecord.status === appiledFilter && singleRecord.fistName.includes(value)) {
             return singleRecord
+          }
+          else {
+            return null
           }
         }
         else {
           if (singleRecord.fistName.includes(value)) {
             return singleRecord
+          }
+          else {
+            return null
           }
         }
       }
@@ -119,6 +133,9 @@ export default function Index() {
         if (singleRecord.name.includes(value)) {
           return singleRecord
         }
+        else {
+          return null
+        }
       })
       setfilteredData(filteredOrg)
     }
@@ -126,6 +143,9 @@ export default function Index() {
       const filteredOrg = RoleData.filter((singleRecord: any) => {
         if (singleRecord.roleName.includes(value)) {
           return singleRecord
+        }
+        else {
+          return null
         }
       })
       setfilteredData(filteredOrg)
@@ -147,6 +167,10 @@ export default function Index() {
   const showModal = () => {
     setIsModalOpen(true);
   };
+  const editDataHandler = () => {
+    setisEdit(true)
+    setOpenDrawer(true)
+  }
 
   const handleOk = () => {
     //  const filterUpdatedData=filteredData.filter((item:any,index:any)=>{
@@ -186,13 +210,9 @@ export default function Index() {
   const handleStatusChange = (e: any, data: any) => {
 
     const UpdatedData = UserData.map((item: any, index: any) => {
+      if (parseInt(item.id) === parseInt(data.id)) {
 
-      console.log("🚀 ~ file: index.tsx:192 ~ UpdatedData ~ item:", item.id)
-      if (parseInt(item.id) == parseInt(data.id)) {
-        console.log("VDSGFDS")
         if (e) {
-          console.log("first")
-
           return { ...item, status: `Enable` }
 
         }
@@ -208,24 +228,25 @@ export default function Index() {
 
     const filteredData = UpdatedData.filter((singleRecord: any) => {
       if (appiledFilter) {
-        if (singleRecord.status == appiledFilter && singleRecord.fistName.includes(searchValue)) {
+        if (singleRecord.status === appiledFilter && singleRecord.fistName.includes(searchValue)) {
           return singleRecord
+        }
+        else {
+          return null
         }
       }
       else {
         if (singleRecord.fistName.includes(searchValue)) {
           return singleRecord
         }
+        else {
+          return null
+        }
       }
     }
     );
-
     setUserData(UpdatedData)
-    console.log("🚀 ~  file: index.tsx:228 ~ setTimeout ~ filteredData:", filteredData)
-    setTimeout(() => {
-
-      setfilteredData(filteredData)
-    }, 2000)
+    setfilteredData(filteredData)
   }
 
 
@@ -235,7 +256,7 @@ export default function Index() {
       dataIndex: 'fistName',
       key: 'fistName',
       sorter: (a: any, b: any) => {
-        return a.name.length - b.name.length;
+        return a.fistName.length - b.fistName.length;
       },
       // sortDirections: ['descend'],
     },
@@ -287,11 +308,11 @@ export default function Index() {
         console.log("🚀 ~ file: index.tsx:268 ~ Index ~ abc:", abc)
         console.log("🚀 ~ file: index.tsx:268 ~ Index ~ data:", data)
         return <Space size={10}>
-          <EditOutlined
+          <Image src={'/assets/images/logos/Group 3580.svg'} preview={false}
             className="table-edit-icon"
-          // onClick={()=>{editDataHandler()}}
+            onClick={() => { editDataHandler() }}
           />
-          <DeleteOutlined
+          <Image src={'/assets/images/logos/Union 95.svg'} preview={false}
             className="table-delete-icon"
             onClick={() => { showModal() }}
           />
@@ -344,13 +365,13 @@ export default function Index() {
       key: 'action',
       render: () => {
         return <Space size={10}>
-          <EditOutlined
+          <Image src={'/assets/images/logos/Group 3580.svg'} preview={false}
             className="table-edit-icon"
-          // onClick={()=>{editDataHandler()}}
+            onClick={() => { editDataHandler() }}
           />
-          <DeleteOutlined
+          <Image src={'/assets/images/logos/Union 95.svg'} preview={false}
             className="table-delete-icon"
-            onClick={showModal}
+            onClick={() => { showModal() }}
           />
         </Space>
       }
@@ -361,6 +382,7 @@ export default function Index() {
       title: 'Role Name',
       dataIndex: 'roleName',
       key: 'roleName',
+      width: 200,
       sorter: (a: any, b: any) => {
         return a.roleName.length - b.roleName.length;
       },
@@ -398,13 +420,13 @@ export default function Index() {
       key: 'action',
       render: () => {
         return <Space size={10}>
-          <EditOutlined
+          <Image src={'/assets/images/logos/Group 3580.svg'} preview={false}
             className="table-edit-icon"
-          // onClick={()=>{editDataHandler()}}
+            onClick={() => { editDataHandler() }}
           />
-          <DeleteOutlined
+          <Image src={'/assets/images/logos/Union 95.svg'} preview={false}
             className="table-delete-icon"
-            onClick={showModal}
+            onClick={() => { showModal() }}
           />
         </Space>
       }
@@ -424,7 +446,7 @@ export default function Index() {
       key: 'all',
       align: "center",
       render: (all: any, data: any) => {
-        return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
+        return <> {data.moduleName !== "Admin" ? <Checkbox></Checkbox> : ``}
         </>
       }
     },
@@ -435,7 +457,7 @@ export default function Index() {
       align: "center",
       render: (all: any, data: any) => {
 
-        return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
+        return <> {data.moduleName !== "Admin" ? <Checkbox></Checkbox> : ``}
         </>
       }
     },
@@ -446,7 +468,7 @@ export default function Index() {
       align: "center",
       render: (all: any, data: any) => {
 
-        return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
+        return <> {data.moduleName !== "Admin" ? <Checkbox></Checkbox> : ``}
         </>
       }
     },
@@ -457,7 +479,7 @@ export default function Index() {
       align: "center",
       render: (all: any, data: any) => {
 
-        return <> {data.moduleName != "Admin" ? <Checkbox></Checkbox> : ``}
+        return <> {data.moduleName !== "Admin" ? <Checkbox></Checkbox> : ``}
         </>
       }
     },
@@ -488,8 +510,7 @@ export default function Index() {
             handlefilterChange={handlefilterChange}
             // openDrawerHandler={openDrawerHandler}
             // setDrawerInfoHandler={setDrawerInfoHandler}
-            settingComponent={settingComponent}
-          ></DynamicTable>
+            settingComponent={settingComponent} permissionDrawer={false}          ></DynamicTable>
 
         }
         {settingComponent === 'organizations' &&
@@ -503,6 +524,7 @@ export default function Index() {
             searchValue={searchValue}
             showModal={showModal}
             settingComponent={settingComponent}
+            permissionDrawer={false}
           ></DynamicTable>
 
         }
@@ -520,6 +542,7 @@ export default function Index() {
             modifyPageSize={modifyPageSize}
             handlefilterChange={handlefilterChange}
             settingComponent={settingComponent}
+            permissionDrawer={false}
           ></DynamicTable>
         }
         {settingComponent === 'integrations' &&

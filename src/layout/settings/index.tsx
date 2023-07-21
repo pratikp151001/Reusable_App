@@ -1,4 +1,3 @@
-import React, { Children } from 'react'
 import Header from '../../Components/settings/Header/index'
 import Sider from '../../Components/settings/Sidebar/index'
 import { Layout } from 'antd'

@@ -5,9 +5,8 @@ import AnimalImage from "../../assets/images/Log-In/Mask Group 1@2x.png"
 import XeroImage from "../../assets/images/Log-In/Mask Group 27@2x.png"
 import { Content } from 'antd/es/layout/layout';
 import './index.css'
-import  loginFormData  from "../../constants/LoginForm"
-import { Link } from 'react-router-dom'
-import { LeftOutlined } from '@ant-design/icons'
+import loginFormData from "../../constants/LoginForm"
+import { Link, useNavigate } from 'react-router-dom'
 
 const { Title, Text } = Typography;
 
@@ -19,11 +18,13 @@ export default function Login() {
     color: '#fff',
     backgroundColor: '#fff',
   };
+  const navigate = useNavigate()
 
 
   function onFinish(values: any) {
-   console.log("🚀 ~ file: index.tsx:24 ~ onFinish ~ values:", values)
-   
+    console.log("🚀 ~ file: index.tsx:24 ~ onFinish ~ values:", values)
+    navigate('/dashboard')
+
   }
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
@@ -45,18 +46,18 @@ export default function Login() {
                 style={{ maxWidth: 600 }}
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
-                 onFinishFailed={onFinishFailed}
+                onFinishFailed={onFinishFailed}
                 autoComplete="off"
               >
                 <Image width={'15%'} src={AnimalImage} preview={false} />
-                  <Title level={2}>Log in</Title>
+                <Title level={2}>Log in</Title>
                 <Title level={5}>
                   Welcome to animal planet! Please Enter your Details!!
                 </Title>
 
                 <div className="container">
 
-                  {loginFormData?.map((item :any, index:any) => (
+                  {loginFormData?.map((item: any, index: any) => (
 
                     <div >
                       <label className="register-form-label">
@@ -68,12 +69,12 @@ export default function Login() {
                         rules={item?.rules as []}
                         wrapperCol={{ span: 24 }}
                       >
-                        {item?.type == 'password' ? (
+                        {item?.type === 'password' ? (
                           <Input.Password
                             placeholder={item?.placeholder}
                             size="large"
                           />
-                        ) : item?.type == 'number' ? (
+                        ) : item?.type === 'number' ? (
                           <Input
                             placeholder={item?.placeholder}
                             size="large"
@@ -88,13 +89,13 @@ export default function Login() {
                       </Form.Item>
                     </div>
                   ))}
-                   <Row justify="space-between">
+                  <Row justify="space-between">
                     <Form.Item
-                     wrapperCol={{ span: 24 }} name="remember" valuePropName="checked">
+                      wrapperCol={{ span: 24 }} name="remember" valuePropName="checked">
                       <Checkbox>Remember me</Checkbox>
                     </Form.Item>
                     <Form.Item
-                     wrapperCol={{ span: 24 }} name="remember" valuePropName="checked">
+                      wrapperCol={{ span: 24 }} name="remember" valuePropName="checked">
                       <Text type="danger">Forgot Password?</Text>
                     </Form.Item>
                   </Row>
@@ -112,33 +113,33 @@ export default function Login() {
                   </Button>
                 </Form.Item>
                 {/* <div > */}
-                <Row justify="space-evenly" className='SignInOptions'>
+                <Row justify="center" gutter={24} className='SignInOptions'>
                   <Col xs={24} md={24} lg={8} sm={24}>
-                  <Button 
-                  className='Intuit'
-                    type="primary"
-                    block={true}
-                    size='large'
-                    style={{backgroundColor:'#0B78C2'}}
-                  >
-                    Sign In With Intuit
-                  </Button>
+                    <Button
+                      className='Intuit'
+                      type="primary"
+                      block={true}
+                      size='large'
+                      style={{ backgroundColor: '#0B78C2' }}
+                    >
+                      Sign In With Intuit
+                    </Button>
                   </Col>
                   <Col xs={24} md={24} lg={8} sm={24} >
-                  <Button 
-                  className='Xero'
-                    block={true}
-                    size='large'
-                  >
-                    <Image src={XeroImage} width={'25px'}/>
-                    Sign In With Xero
-                  </Button>
+                    <Button
+                      className='Xero'
+                      block={true}
+                      size='large'
+                    >
+                      <Image src={XeroImage} width={'25px'} />
+                      Sign In With Xero
+                    </Button>
                   </Col>
                   {/* </div> */}
-                  </Row>
-              <p style={{color:"black"}}>Don't have Account yet?<Link to={'/'}>Sign up Today!</Link></p>
+                </Row>
+                <p style={{ color: "black" }}>Don't have Account yet?<Link to={'/'}>Sign up Today!</Link></p>
               </Form>
-              </Col>     
+            </Col>
           </Row>
 
         </Content>

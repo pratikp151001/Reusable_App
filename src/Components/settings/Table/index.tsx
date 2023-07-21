@@ -1,12 +1,12 @@
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
-import { Space, Table } from 'antd'
-import Column from 'antd/es/table/Column'
+import { Table } from 'antd'
 import "antd/es/table/style"
 import SearchAndFilter from '../../settings/SearchAndFilter/index'
 import './index.css'
+import DynamicTableProps from './types'
+import { FC } from 'react'
 
 
-export default function Index(props: any) {
+const DynamicTable: FC<DynamicTableProps> = (props) => {
 
   const { userDataSource, userColumns, permissionDrawer, paginationChangeHandler, currentPage, totalRecords, performSearchHandler, searchValue, PageSize, modifyPageSize, handlefilterChange, settingComponent } = props
   return (
@@ -34,7 +34,7 @@ export default function Index(props: any) {
           hideOnSinglePage: true
         }}
         columns={userColumns}
-        // scroll={{ y: "65vh", x: "65vh" }}
+        // scroll={{ y: "50vh", x: true }}
         scroll={{ x: true }}
       >
 
@@ -42,3 +42,5 @@ export default function Index(props: any) {
     </>
   )
 }
+
+export default DynamicTable

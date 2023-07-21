@@ -1,40 +1,25 @@
-import { CloseOutlined } from '@ant-design/icons'
-import { Button, Col, Drawer, Form, Input, Row, Space } from 'antd'
-import React, { useState } from 'react'
-import { AddUserDrawerBody } from '../../../constants/AddUserDrawer'
-import DynamicTable from '../../../Components/settings/Table/index'
+import { Button, Row } from 'antd'
 import "./index.css"
+import { Link } from 'react-router-dom'
 
 export default function Index(props: any) {
   const { title, addInfo, OpenDrawer } = props
 
-  // const [OpenDrawer, setOpenDrawer] = useState(false)
-
-  //handleAddInfoClick
   const handleAddInfoClick = () => {
     OpenDrawer(true)
   }
-
-  // const onClose = () => {
-  //   setOpenDrawer(false)
-  // }
-
-
-  // function onFinishFailed(errorInfo: any): void {
-  //   console.log("🚀 ~ file: index.tsx:23 ~ onFinishFailed ~ errorInfo:", errorInfo)
-
-  // }
-
-  // function onFinish(values: any): void {
-  //   console.log("🚀 ~ file: index.tsx:27 ~ onFinish ~ values:", values)
-
-  // }
 
   return (
     <>
       <Row style={{ width: '100%' }} justify="space-between">
         <div>
-          <b style={{ fontSize: '30px' }}>{title.charAt(0).toUpperCase() + title.slice(1)}</b>
+          <b style={{ fontSize: '26px' }}>{title === 'subscription' && <span>My </span>}{title.charAt(0).toUpperCase() + title.slice(1)}
+            {title === 'integrations' && (
+              <>
+                {' '}
+                | <Link to={''} className='ViewActiveConnectionLink' style={{ fontSize: '13px' }}>View Active Connections (0)</Link>
+              </>
+            )}</b>
         </div>
         <div>
           {addInfo && <Button

@@ -10,8 +10,9 @@ export default function index(props: any) {
                 {checked == `Enable` ?
                     <input type="checkbox" defaultChecked={true} onClick={(e) => { handleStatusChange(e, id) }} /> :
                     <input type="checkbox" defaultChecked={false} onClick={(e) => {
-                        setTimeout(() => { handleStatusChange(e, id) }, 1000)
-                    }} />
+                        handleStatusChange(e, id)
+                    }
+                    } />
                 }
                 <span className="slider round" ></span>
             </label>

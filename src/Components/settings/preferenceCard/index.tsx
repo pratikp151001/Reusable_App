@@ -1,13 +1,15 @@
 import { Card, Col, Row, Switch } from 'antd'
-import React from 'react'
+import PreferenceCardProps from './types'
+import React, { FC } from 'react'
 
-export default function index(props: any) {
+const PreferenceCard: FC<PreferenceCardProps> = (props) => {
     const { preferencesData } = props
     return (
         <>
             <Card
                 title={preferencesData.title}
-                extra={<Switch defaultChecked={true} />}>
+                extra={<Switch defaultChecked={true} />}
+                style={{ width: '90%' }}>
                 <Row >
                     {preferencesData?.preferences?.map((item: any, index: number) => (
                         <Col style={{ textAlign: 'start', marginBottom: '2%' }} lg={9} md={12} sm={12} xs={24} >
@@ -20,3 +22,4 @@ export default function index(props: any) {
         </>
     )
 }
+export default PreferenceCard
