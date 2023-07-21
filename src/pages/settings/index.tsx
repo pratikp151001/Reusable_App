@@ -4,7 +4,7 @@ import AddInfo from '../../Components/settings/AddInfo/index'
 import DynamicTable from "../../Components/settings/Table/index"
 import { MenuInfo } from 'rc-menu/lib/interface';
 import ConfirmDelete from "../../Components/golbal/DeleteConfirmationModal/index"
-import { Alert, Button, Checkbox, Col, Drawer, Form, Row, Space, Switch } from 'antd';
+import { Alert, Button, Checkbox, Col, Drawer, Form, Row, Space, Switch, Image } from 'antd';
 import Icon, { CloseOutlined, DeleteOutlined, EditOutlined, OrderedListOutlined } from '@ant-design/icons';
 // import { AddUserDrawerBody } from '../../constants/AddUserDrawer';
 import AddUserForm from "../../Components/settings/AddUser/index"
@@ -37,10 +37,12 @@ export default function Index() {
   const [searchValue, setSearchValue] = useState('')
   const [PageSize, setPageSize] = useState(10)
   const [appiledFilter, setappiledFilter] = useState()
+  const [isEdit, setisEdit] = useState(false)
 
   useEffect(() => {
     setSearchValue('')
     setPageSize(10)
+    setcurrentPage(1)
   }, [settingComponent])
   const handlefilterChange = (e: any) => {
     setappiledFilter(e)
@@ -165,6 +167,10 @@ export default function Index() {
   const showModal = () => {
     setIsModalOpen(true);
   };
+  const editDataHandler = () => {
+    setisEdit(true)
+    setOpenDrawer(true)
+  }
 
   const handleOk = () => {
     //  const filterUpdatedData=filteredData.filter((item:any,index:any)=>{
@@ -302,11 +308,11 @@ export default function Index() {
         console.log("🚀 ~ file: index.tsx:268 ~ Index ~ abc:", abc)
         console.log("🚀 ~ file: index.tsx:268 ~ Index ~ data:", data)
         return <Space size={10}>
-          <EditOutlined
+          <Image src={'/assets/images/logos/Group 3580.svg'} preview={false}
             className="table-edit-icon"
-          // onClick={()=>{editDataHandler()}}
+            onClick={() => { editDataHandler() }}
           />
-          <DeleteOutlined
+          <Image src={'/assets/images/logos/Union 95.svg'} preview={false}
             className="table-delete-icon"
             onClick={() => { showModal() }}
           />
@@ -359,13 +365,13 @@ export default function Index() {
       key: 'action',
       render: () => {
         return <Space size={10}>
-          <EditOutlined
+          <Image src={'/assets/images/logos/Group 3580.svg'} preview={false}
             className="table-edit-icon"
-          // onClick={()=>{editDataHandler()}}
+            onClick={() => { editDataHandler() }}
           />
-          <DeleteOutlined
+          <Image src={'/assets/images/logos/Union 95.svg'} preview={false}
             className="table-delete-icon"
-            onClick={showModal}
+            onClick={() => { showModal() }}
           />
         </Space>
       }
@@ -376,6 +382,7 @@ export default function Index() {
       title: 'Role Name',
       dataIndex: 'roleName',
       key: 'roleName',
+      width: 200,
       sorter: (a: any, b: any) => {
         return a.roleName.length - b.roleName.length;
       },
@@ -413,13 +420,13 @@ export default function Index() {
       key: 'action',
       render: () => {
         return <Space size={10}>
-          <EditOutlined
+          <Image src={'/assets/images/logos/Group 3580.svg'} preview={false}
             className="table-edit-icon"
-          // onClick={()=>{editDataHandler()}}
+            onClick={() => { editDataHandler() }}
           />
-          <DeleteOutlined
+          <Image src={'/assets/images/logos/Union 95.svg'} preview={false}
             className="table-delete-icon"
-            onClick={showModal}
+            onClick={() => { showModal() }}
           />
         </Space>
       }

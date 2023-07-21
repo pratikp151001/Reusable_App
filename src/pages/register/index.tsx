@@ -6,12 +6,12 @@ import XeroImage from "../../assets/images/Log-In/Mask Group 27@2x.png"
 import { Content } from 'antd/es/layout/layout';
 import './index.css'
 import { registerFormData } from "../../constants/RegistrationForm"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { LeftOutlined } from '@ant-design/icons'
 
 const { Title } = Typography;
 
-export default function index() {
+export default function Index() {
   const contentStyle: React.CSSProperties = {
     textAlign: 'center',
     minHeight: '100vh',
@@ -20,9 +20,10 @@ export default function index() {
     backgroundColor: '#fff',
   };
 
+  const navigate = useNavigate()
 
   function onFinish(values: any) {
-    console.log("🚀 ~ file: index.tsx:24 ~ onFinish ~ values:", values)
+    navigate('/dashboard')
 
   }
   const onFinishFailed = (errorInfo: any) => {

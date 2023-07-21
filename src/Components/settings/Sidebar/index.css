@@ -3,15 +3,19 @@
   padding: 0%;
 }
 
-.ant-menu-item-selected {
-  background-color: #F3F8FF !important;
-  border-left: 3px #286FD1 solid;
-}
 
 .ant-menu-item {
   margin: 0% !important;
   width: 200px !important;
   border-radius: 0px !important;
+  font-weight: 500 !important;
+}
+
+.ant-menu-item-selected {
+  background-color: #F3F8FF !important;
+  border-left: 3px #286FD1 solid;
+  color: black !important;
+  font-weight: bold !important;
 }
 
 ul {

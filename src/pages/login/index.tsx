@@ -6,7 +6,7 @@ import XeroImage from "../../assets/images/Log-In/Mask Group 27@2x.png"
 import { Content } from 'antd/es/layout/layout';
 import './index.css'
 import loginFormData from "../../constants/LoginForm"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const { Title, Text } = Typography;
 
@@ -18,10 +18,12 @@ export default function Login() {
     color: '#fff',
     backgroundColor: '#fff',
   };
+  const navigate = useNavigate()
 
 
   function onFinish(values: any) {
     console.log("🚀 ~ file: index.tsx:24 ~ onFinish ~ values:", values)
+    navigate('/dashboard')
 
   }
   const onFinishFailed = (errorInfo: any) => {
@@ -111,7 +113,7 @@ export default function Login() {
                   </Button>
                 </Form.Item>
                 {/* <div > */}
-                <Row justify="space-evenly" className='SignInOptions'>
+                <Row justify="center" gutter={24} className='SignInOptions'>
                   <Col xs={24} md={24} lg={8} sm={24}>
                     <Button
                       className='Intuit'

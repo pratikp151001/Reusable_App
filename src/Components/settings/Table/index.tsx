@@ -34,7 +34,7 @@ const DynamicTable: FC<DynamicTableProps> = (props) => {
           hideOnSinglePage: true
         }}
         columns={userColumns}
-        // scroll={{ y: "65vh", x: "65vh" }}
+        // scroll={{ y: "50vh", x: true }}
         scroll={{ x: true }}
       >
 

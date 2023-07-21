@@ -8,7 +8,8 @@ const PreferenceCard: FC<PreferenceCardProps> = (props) => {
         <>
             <Card
                 title={preferencesData.title}
-                extra={<Switch defaultChecked={true} />}>
+                extra={<Switch defaultChecked={true} />}
+                style={{ width: '90%' }}>
                 <Row >
                     {preferencesData?.preferences?.map((item: any, index: number) => (
                         <Col style={{ textAlign: 'start', marginBottom: '2%' }} lg={9} md={12} sm={12} xs={24} >

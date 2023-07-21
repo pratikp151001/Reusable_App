@@ -1,5 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import { Modal } from 'antd'
+import { Modal, Image } from 'antd'
 import React from 'react'
 import './index.css'
 
@@ -13,7 +13,7 @@ export default function Index(props: any) {
         okText={'Delete'}
         closable={false}
       >
-        <div className='DeleteIcon'><DeleteOutlined /></div>
+        <div className='DeleteIcon'><Image src={'/assets/images/logos/Union 142.svg'} preview={false} /></div>
         <p className='DeleteMsg'><b>Are You Sure Want to Delete??</b></p>
       </Modal>
 

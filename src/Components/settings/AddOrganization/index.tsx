@@ -24,7 +24,7 @@ export default function index() {
           </Form.Item>
         </Col>
       </Row>
-      <Row justify="start" >
+      <Row justify="center" gutter={16} >
         <Col xs={12} md={12} lg={12} sm={12}>
           <label> {'Email Address'}</label>
           <Form.Item className='formItem'

@@ -45,3 +45,7 @@
 .ant-pagination-item-active a {
     color: #FFF !important;
 }
+
+.ant-table-thead th {
+    background-color: #FFF !important;
+}

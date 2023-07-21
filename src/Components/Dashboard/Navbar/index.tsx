@@ -39,7 +39,7 @@ export default function Index() {
                         <br />
                         <span>dscs</span>
                     </div> */}
-                    <LoginOutlined style={{ fontSize: '25px', marginRight: '10px' }} />
+                    <LoginOutlined onClick={() => { navigate('/') }} style={{ fontSize: '25px', marginRight: '10px' }} />
                 </div>
                 </Col>
             </Row>
