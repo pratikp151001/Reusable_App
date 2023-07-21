@@ -106,7 +106,7 @@ export default function Index() {
                   </Button>
                 </Form.Item>
                 {/* <div > */}
-                <Row justify="space-evenly" className='SignInOptions'>
+                <Row justify="center" gutter={24} className='SignInOptions'>
                   <Col xs={24} md={24} lg={8} sm={24}>
                     <Button
                       className='Intuit'

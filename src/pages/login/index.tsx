@@ -59,7 +59,7 @@ export default function Login() {
 
                   {loginFormData?.map((item: any, index: any) => (
 
-                    <div >
+                    <div key={index} >
                       <label className="register-form-label">
                         {item?.icon}
                         {item?.title} {item?.required && '*'}

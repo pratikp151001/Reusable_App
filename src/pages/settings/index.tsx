@@ -90,10 +90,15 @@ export default function Index() {
 
   //modifyPageSize
   const modifyPageSize = (size: number) => {
-    console.log("🚀 ~ file: index.tsx:64 ~ modifyPageSize ~ size:", size)
+    if (size === undefined || size === null) {
+      setPageSize(10)
+    }
+    else {
 
-    setPageSize(size)
+      setPageSize(size)
+    }
   }
+
 
   //paginationChangeHandler
 
@@ -102,9 +107,9 @@ export default function Index() {
   }
 
   const performSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("Running Function")
+
     const { value } = e.target
-    console.log("🚀 ~ file: index.tsx:85 ~ performSearchHandler ~ value:", value)
+
     setSearchValue(value);
     if (settingComponent === 'users') {
       const filteredData = UserData.filter((singleRecord: any) => {
@@ -224,7 +229,6 @@ export default function Index() {
         return item
       }
     })
-    console.log("🚀 ~ file: index.tsx:204 ~ UpdatedData ~ UpdatedData:", UpdatedData)
 
     const filteredData = UpdatedData.filter((singleRecord: any) => {
       if (appiledFilter) {
@@ -280,7 +284,7 @@ export default function Index() {
       dataIndex: 'status',
       key: 'status',
       render: (status: any, id: any) => {
-        console.log("🚀 ~ file: index.tsx:250 ~ Index ~ id:", id)
+
         return <><div className='statusdiv' style={{ display: 'inline-block' }}>
           {status === `Enable` ?
             <>
@@ -304,9 +308,8 @@ export default function Index() {
       title: "Action",
       dataIndex: 'action',
       key: 'action',
-      render: (data: any, abc: any) => {
-        console.log("🚀 ~ file: index.tsx:268 ~ Index ~ abc:", abc)
-        console.log("🚀 ~ file: index.tsx:268 ~ Index ~ data:", data)
+      render: (data: any) => {
+
         return <Space size={10}>
           <Image src={'/assets/images/logos/Group 3580.svg'} preview={false}
             className="table-edit-icon"
@@ -353,8 +356,11 @@ export default function Index() {
       key: 'isActive',
       render: (isActive: any) => (
         <>
-          {isActive === `Active` ? <Alert message="Active" type="success" showIcon /> : <Alert message="Invalid" type="error" showIcon />
-          }
+          <div style={{ display: 'flex' }}>
+            {isActive === `Active` ? <><Image src={'/assets/images/logos/Path 6129.svg'} /> <p style={{ fontWeight: 'bold', color: 'green' }}>{isActive}</p></> : <><Image src={'/assets/images/logos/Path 6131.svg'} /> <p style={{ fontWeight: 'bold', color: 'red' }}>{isActive}</p></>
+            }
+          </div>
+
         </>
 
       )
@@ -400,8 +406,10 @@ export default function Index() {
       key: 'isActive',
       render: (isActive: any) => (
         <>
-          {isActive === `Active` ? <Alert message="Active" type="success" showIcon /> : <Alert message="Invalid" type="error" showIcon />
-          }
+          <div style={{ display: 'flex' }}>
+            {isActive === `Active` ? <><Image src={'/assets/images/logos/Path 6129.svg'} /> <p style={{ fontWeight: 'bold', color: 'green' }}>{isActive}</p></> : <><Image src={'/assets/images/logos/Path 6131.svg'} /> <p style={{ fontWeight: 'bold', color: 'red' }}>{isActive}</p></>
+            }
+          </div>
         </>
 
       )

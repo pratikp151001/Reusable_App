@@ -65,7 +65,7 @@ export const AddUserDrawerBody = [
           if (re.test(getFieldValue('phoneNumber'))) {
             return Promise.resolve();
           } else {
-            return Promise.reject(new Error('Invalid phoneNumber'));
+            return Promise.reject(new Error('Please Enter Valid phoneNumber'));
           }
         },
         validateTrigger: 'onSubmit',
