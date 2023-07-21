@@ -29,7 +29,7 @@ export default function Index() {
                     <div className='UserName' >
                         <Typography style={{ height: '30px', fontWeight: 700, textAlign: 'start', paddingTop: '10px' }}>Thonos Peterson
                         </Typography>
-                        <Typography style={{ height: '30px', fontWeight: 400, paddingBottom: '10px', textAlign: 'start', fontSize: '12px' }}>My Profile
+                        <Typography style={{ height: '30px', fontWeight: 500, paddingBottom: '10px', textAlign: 'start', fontSize: '12px' }}>My Profile
                         </Typography>
                         {/* <Col lg={24}>ghdrfh
                         </Col> */}

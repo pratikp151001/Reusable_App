@@ -9,7 +9,7 @@ const Interigration: FC<InterigrationProps> = (props) => {
         <>
             <Row justify={'space-between'} gutter={5}>
                 {InterigrationData.map((item: any, index: any) => (
-                    <Col xs={24} md={12} lg={6} sm={24} xl={6} style={{ marginBottom: '2%', textAlign: 'left' }} >
+                    <Col xs={24} md={12} lg={6} sm={24} xl={6} style={{ marginBottom: '2%', textAlign: 'left' }} key={index} >
                         <Card bordered={true} >
                             <Image preview={false} src={item?.logo} style={{ display: 'block', height: '35px', maxWidth: '150px' }} /><br />
                             <span style={{ marginBottom: '2%' }} >Company:</span>

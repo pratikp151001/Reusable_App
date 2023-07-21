@@ -12,7 +12,7 @@ const PreferenceCard: FC<PreferenceCardProps> = (props) => {
                 style={{ width: '90%' }}>
                 <Row >
                     {preferencesData?.preferences?.map((item: any, index: number) => (
-                        <Col style={{ textAlign: 'start', marginBottom: '2%' }} lg={9} md={12} sm={12} xs={24} >
+                        <Col style={{ textAlign: 'start', marginBottom: '2%' }} lg={9} md={12} sm={12} xs={24} key={index} >
                             <Switch defaultChecked={true} style={{ display: 'inline-block', marginRight: '1%' }} />
                             <span>{item?.title}</span>
                         </Col>
