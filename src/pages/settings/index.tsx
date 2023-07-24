@@ -28,11 +28,12 @@ import "./index.css";
 import PreferenceCard from "../../Components/settings/preferenceCard/index";
 import preferencesData from "../../constants/PreferenceData";
 import rolesData from "../../constants/RolesData";
-import PermissionData from "../../constants/PermissionData";
+import PermissionDataSource from "../../constants/PermissionData";
 import AddRoleForm from "../../Components/settings/AddRole/index";
 // import CustomSwitch from '../../Components/settings/Switch/index'
 
 export default function Index() {
+  const [PermissionData, setPermissionData] = useState(PermissionDataSource);
   const [UserData, setUserData] = useState(UsersData);
   const [ORGData, setORGData] = useState(OrgDataSource);
   const [RoleData, setRoleData] = useState(rolesData);
@@ -248,6 +249,74 @@ export default function Index() {
     });
     setUserData(UpdatedData);
     setfilteredData(filteredData);
+  };
+
+  const PermissionChangeHandler = (
+    data: any,
+    e: any,
+    PermmmisionName: string,
+  ) => {
+    console.log(
+      "🚀 ~ file: index.tsx:259 ~ Index ~ PermmmisionName:",
+      PermmmisionName,
+    );
+    const PermissionUpdate = PermissionData.map((item: any, index: number) => {
+      console.log("🚀 ~ file: index.tsx:258 ~ PermissionUpdate ~ item:", item);
+      if (item.moduleName === data.moduleName) {
+        if (e.target.checked) {
+          if (PermmmisionName === "all") {
+            return {
+              ...item,
+              all: true,
+              view: true,
+              edit: true,
+              delete: true,
+            };
+          } else {
+            // console.log(Object.values(item).every((i) => i === true));
+
+            // const data = { ...item, [PermmmisionName]: true, all: false };
+            item[PermmmisionName] = true;
+            const propertyNames = Object.keys(item).filter(
+              (key) => key !== "moduleName" && key !== "all",
+            );
+
+            const anyFalseValue = propertyNames.some(
+              (key) => item[key] === false,
+            );
+
+            // Set all property based on the condition
+            item.all = !anyFalseValue;
+            console.log(
+              "🚀 ~ file: index.tsx:288 ~ PermissionUpdate ~ item:",
+              item,
+            );
+            return item;
+
+            // return { ...item, all: item.view && item.edit && item.delete };
+          }
+        } else {
+          if (PermmmisionName === "all") {
+            return {
+              ...item,
+              all: false,
+              view: false,
+              edit: false,
+              delete: false,
+            };
+          } else {
+            return { ...item, [PermmmisionName]: false, all: false };
+          }
+        }
+      }
+      return item;
+    });
+
+    console.log(
+      "🚀 ~ file: index.tsx:286 ~ Index ~ PermissionUpdate:",
+      PermissionUpdate,
+    );
+    setPermissionData(PermissionUpdate);
   };
 
   const userColumns = [
@@ -514,8 +583,20 @@ export default function Index() {
       dataIndex: "all",
       key: "all",
       align: "center",
-      render: (all: any, data: any) => {
-        return <> {data.moduleName !== "Admin" ? <Checkbox></Checkbox> : ``}</>;
+      render: (PermmisionName: any, data: any) => {
+        return (
+          <>
+            {" "}
+            {data.moduleName !== "Admin" ? (
+              <Checkbox
+                checked={PermmisionName}
+                onChange={(e) => PermissionChangeHandler(data, e, "all")}
+              ></Checkbox>
+            ) : (
+              ``
+            )}
+          </>
+        );
       },
     },
     {
@@ -523,8 +604,20 @@ export default function Index() {
       dataIndex: "view",
       key: "view",
       align: "center",
-      render: (all: any, data: any) => {
-        return <> {data.moduleName !== "Admin" ? <Checkbox></Checkbox> : ``}</>;
+      render: (PermmisionName: any, data: any) => {
+        return (
+          <>
+            {" "}
+            {data.moduleName !== "Admin" ? (
+              <Checkbox
+                checked={PermmisionName}
+                onChange={(e) => PermissionChangeHandler(data, e, "view")}
+              ></Checkbox>
+            ) : (
+              ``
+            )}
+          </>
+        );
       },
     },
     {
@@ -532,8 +625,20 @@ export default function Index() {
       dataIndex: "edit",
       key: "edit",
       align: "center",
-      render: (all: any, data: any) => {
-        return <> {data.moduleName !== "Admin" ? <Checkbox></Checkbox> : ``}</>;
+      render: (PermmisionName: any, data: any) => {
+        return (
+          <>
+            {" "}
+            {data.moduleName !== "Admin" ? (
+              <Checkbox
+                checked={PermmisionName}
+                onChange={(e) => PermissionChangeHandler(data, e, "edit")}
+              ></Checkbox>
+            ) : (
+              ``
+            )}
+          </>
+        );
       },
     },
     {
@@ -541,8 +646,20 @@ export default function Index() {
       dataIndex: "delete",
       key: "delete",
       align: "center",
-      render: (all: any, data: any) => {
-        return <> {data.moduleName !== "Admin" ? <Checkbox></Checkbox> : ``}</>;
+      render: (PermmisionName: any, data: any) => {
+        return (
+          <>
+            {" "}
+            {data.moduleName !== "Admin" ? (
+              <Checkbox
+                checked={PermmisionName}
+                onChange={(e) => PermissionChangeHandler(data, e, "delete")}
+              ></Checkbox>
+            ) : (
+              ``
+            )}
+          </>
+        );
       },
     },
   ];
@@ -669,7 +786,7 @@ export default function Index() {
               </Button>
             </Space>
           }
-        // closeIcon={<CloseOutlined style={{right:'2%',position:'absolute'}}/> }
+          // closeIcon={<CloseOutlined style={{right:'2%',position:'absolute'}}/> }
         >
           <Form
             name="basic"
