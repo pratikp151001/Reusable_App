@@ -5,7 +5,7 @@ import "./index.css";
 import DynamicTableProps from "./types";
 import { FC } from "react";
 
-const DynamicTable: FC<DynamicTableProps> = (props) => {
+const DynamicTable: FC<DynamicTableProps> = (props: DynamicTableProps) => {
   const {
     userDataSource,
     userColumns,
