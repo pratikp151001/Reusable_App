@@ -4,9 +4,8 @@ import AddInfo from '../../Components/settings/AddInfo/index'
 import DynamicTable from "../../Components/settings/Table/index"
 import { MenuInfo } from 'rc-menu/lib/interface';
 import ConfirmDelete from "../../Components/golbal/DeleteConfirmationModal/index"
-import { Alert, Button, Checkbox, Col, Drawer, Form, Row, Space, Switch, Image } from 'antd';
-import Icon, { CloseOutlined, DeleteOutlined, EditOutlined, OrderedListOutlined } from '@ant-design/icons';
-// import { AddUserDrawerBody } from '../../constants/AddUserDrawer';
+import { Button, Checkbox, Col, Drawer, Form, Row, Space, Switch, Image } from 'antd';
+import Icon, { CloseOutlined, OrderedListOutlined } from '@ant-design/icons';
 import AddUserForm from "../../Components/settings/AddUser/index"
 import AddORGForm from '../../Components/settings/AddOrganization/index'
 import { toastText } from '../../utils/DisplayToast'
