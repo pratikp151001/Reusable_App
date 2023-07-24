@@ -1,21 +1,21 @@
 .content {
-    height: calc(100vh - 64px) !important;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    font-size: 50px;
-    font-weight: 500;
-    background-color: #F3F5F7;
+  height: calc(100vh - 64px) !important;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-size: 50px;
+  font-weight: 500;
+  background-color: #f3f5f7;
 }
 
 .ant-layout-header {
-    padding-right: 10px;
-    padding-left: 20px;
+  padding-right: 10px;
+  padding-left: 20px;
 }
 
 /* aside {
     height: auto;
 } */
 .DashboardSidebar aside {
-    height: 100vh !important;
+  height: 100vh !important;
 }

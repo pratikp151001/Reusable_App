@@ -5,20 +5,25 @@
         "jest": true
     },
     "extends": [
-        "standard-with-typescript",
-        "plugin:react/recommended"
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:prettier/recommended"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module",
         "project": [
             "./tsconfig.json"
-        ]
+        ],
+        "ecmaFeatures": {
+            "tsx": true
+        }
     },
     "plugins": [
         "react"
     ],
     "rules": {
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "no-unused-vars": "off"
     }
 }

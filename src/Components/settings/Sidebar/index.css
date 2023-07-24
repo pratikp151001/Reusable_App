@@ -3,7 +3,6 @@
   padding: 0%;
 }
 
-
 .ant-menu-item {
   margin: 0% !important;
   width: 200px !important;
@@ -12,8 +11,8 @@
 }
 
 .ant-menu-item-selected {
-  background-color: #F3F8FF !important;
-  border-left: 3px #286FD1 solid;
+  background-color: #f3f8ff !important;
+  border-left: 3px #286fd1 solid;
   color: black !important;
   font-weight: bold !important;
 }
@@ -44,7 +43,6 @@ aside {
   .getsuppBtn {
     width: 50px !important;
     min-height: 30px !important;
-
   }
 
   aside {
@@ -64,17 +62,15 @@ aside {
   }
 
   .ant-menu-item {
-
     width: 100px !important;
-
   }
 }
 
 .getsuppBtn {
   margin-top: auto !important;
-  border: #286FD1 solid 1px;
+  border: #286fd1 solid 1px;
   width: 60% !important;
-  color: #286FD1;
+  color: #286fd1;
 }
 
 .ant-layout-sider-children {

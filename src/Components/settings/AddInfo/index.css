@@ -1,7 +1,8 @@
 .SaveAndCancelbtn {
   margin-top: auto !important;
 }
-.ant-drawer-body,.ant-form {
+.ant-drawer-body,
+.ant-form {
   display: flex;
   flex-direction: column;
   height: 100% !important;
