@@ -1,30 +1,29 @@
-import React, { FC } from 'react'
+import React, { FC } from "react";
 import {
   MoneyCollectOutlined,
   SettingOutlined,
   UsergroupAddOutlined,
   IdcardOutlined,
-  ApartmentOutlined
-} from '@ant-design/icons';
-import Sider from 'antd/es/layout/Sider'
-import { Button, Menu, MenuProps } from 'antd';
-import SidebarProps from './types';
-import "./index.css"
+  ApartmentOutlined,
+} from "@ant-design/icons";
+import Sider from "antd/es/layout/Sider";
+import { Button, Menu, MenuProps } from "antd";
+import SidebarProps from "./types";
+import "./index.css";
 
 const Index: FC<SidebarProps> = (props) => {
-
-  const { handleSidebar } = props
-  const items: MenuProps['items'] = [
+  const { handleSidebar } = props;
+  const items: MenuProps["items"] = [
     {
-      key: 'users',
+      key: "users",
       icon: <UsergroupAddOutlined />,
-      label: 'Users',
+      label: "Users",
       // disabled: true,
     },
     {
-      key: 'organizations',
+      key: "organizations",
       icon: <UsergroupAddOutlined />,
-      label: 'Organization',
+      label: "Organization",
       // children: [
       //   {
       //     key: 'sidebar-items-2',
@@ -34,51 +33,46 @@ const Index: FC<SidebarProps> = (props) => {
       // ],
     },
     {
-      key: 'roles',
+      key: "roles",
       icon: <IdcardOutlined />,
-      label: 'Roles',
+      label: "Roles",
     },
     {
-      key: 'integrations',
+      key: "integrations",
       icon: <ApartmentOutlined />,
-      label: 'Integrations',
+      label: "Integrations",
     },
     {
-      key: 'preference',
+      key: "preference",
       icon: <SettingOutlined />,
-      label: 'Preference',
+      label: "Preference",
     },
     {
-      key: 'subscription',
+      key: "subscription",
       icon: <MoneyCollectOutlined />,
-      label: 'Subscription',
+      label: "Subscription",
     },
   ];
   return (
-
     <Sider
-      className='sideBar'
+      className="sideBar"
       style={{
-        background: '#fff',
-        maxHeight: '100%',
-        maxWidth: '256px',
-        height: '100vh',
-      }}>
+        background: "#fff",
+        maxHeight: "100%",
+        maxWidth: "256px",
+        height: "100vh",
+      }}
+    >
       <Menu
         onClick={handleSidebar}
-        defaultSelectedKeys={['users']}
+        defaultSelectedKeys={["users"]}
         mode="inline"
         items={items}
       />
-      <Button
-        className='getsuppBtn'
-        block={true}
-        size="large"
-      >
+      <Button className="getsuppBtn" block={true} size="large">
         Get Support
       </Button>
     </Sider>
-
-  )
-}
-export default Index
+  );
+};
+export default Index;

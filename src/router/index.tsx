@@ -1,2 +1,2 @@
 import router from "./BrowserRouter";
-export default router
+export default router;

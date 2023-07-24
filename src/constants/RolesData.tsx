@@ -1,4 +1,3 @@
-
 const RolesDataSource: any = [];
 for (let index = 0; index < 24; index++) {
   RolesDataSource.push({
@@ -17,4 +16,4 @@ RolesDataSource.push({
   action: `some action`,
 });
 
-export default RolesDataSource
+export default RolesDataSource;

@@ -1,51 +1,51 @@
 .ant-spin-container {
-    text-align: center !important;
-    align-items: center !important;
+  text-align: center !important;
+  align-items: center !important;
 }
 
 .ant-pagination {
-    text-align: center;
-    align-items: center;
+  text-align: center;
+  align-items: center;
 }
 
 .usertable {
-    text-align: center !important;
-    align-items: center !important;
+  text-align: center !important;
+  align-items: center !important;
 }
 
 .ant-alert {
-    border: none !important;
-    background-color: white;
+  border: none !important;
+  background-color: white;
 }
 
 .searchAndfilter {
-    margin-bottom: 2% !important;
+  margin-bottom: 2% !important;
 }
 
 .ant-table-cell {
-    padding: 1% 2% !important;
+  padding: 1% 2% !important;
 }
 
 .ant-pagination {
-    margin-top: 1rem !important;
+  margin-top: 1rem !important;
 }
 
 .ant-pagination .ant-pagination-item,
 .ant-pagination li {
-    border: 1px solid rgb(124, 124, 124);
-    border-radius: 50% !important;
+  border: 1px solid rgb(124, 124, 124);
+  border-radius: 50% !important;
 }
 
 .ant-pagination-item-active {
-    border: 1px solid #286FD1 !important;
-    background-color: #286FD1 !important;
-    color: #FFF !important;
+  border: 1px solid #286fd1 !important;
+  background-color: #286fd1 !important;
+  color: #fff !important;
 }
 
 .ant-pagination-item-active a {
-    color: #FFF !important;
+  color: #fff !important;
 }
 
 .ant-table-thead th {
-    background-color: #FFF !important;
+  background-color: #fff !important;
 }

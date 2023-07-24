@@ -1,4 +1,4 @@
 type InterigrationProps = {
-    InterigrationData: any;
-}
-export default InterigrationProps
+  InterigrationData: any;
+};
+export default InterigrationProps;

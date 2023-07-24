@@ -1,4 +1,3 @@
-
 const userDataSource: any = [];
 
 for (let index = 0; index < 24; index++) {
@@ -23,4 +22,4 @@ userDataSource.push({
   action: `some action`,
 });
 
-export default userDataSource
+export default userDataSource;

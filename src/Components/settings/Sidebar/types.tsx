@@ -1,4 +1,4 @@
 type SidebarProps = {
-    handleSidebar: () => void;
-}
-export default SidebarProps
+  handleSidebar: () => void;
+};
+export default SidebarProps;
