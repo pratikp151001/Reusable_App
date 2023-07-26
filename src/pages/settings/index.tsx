@@ -256,60 +256,69 @@ export default function Index() {
     e: any,
     PermmmisionName: string,
   ) => {
-    console.log(
-      "🚀 ~ file: index.tsx:259 ~ Index ~ PermmmisionName:",
-      PermmmisionName,
-    );
     const PermissionUpdate = PermissionData.map((item: any, index: number) => {
-      console.log("🚀 ~ file: index.tsx:258 ~ PermissionUpdate ~ item:", item);
+      let duplicateItem = item;
+      console.log(
+        "🚀 ~ file: index.tsx:262 ~ PermissionUpdate ~ duplicateItem:",
+        duplicateItem,
+      );
       if (item.moduleName === data.moduleName) {
         if (e.target.checked) {
           if (PermmmisionName === "all") {
-            return {
-              ...item,
+            duplicateItem = {
+              ...duplicateItem,
               all: true,
               view: true,
               edit: true,
               delete: true,
             };
-          } else {
-            // console.log(Object.values(item).every((i) => i === true));
-
-            // const data = { ...item, [PermmmisionName]: true, all: false };
-            item[PermmmisionName] = true;
-            const propertyNames = Object.keys(item).filter(
-              (key) => key !== "moduleName" && key !== "all",
-            );
-
-            const anyFalseValue = propertyNames.some(
-              (key) => item[key] === false,
-            );
-
-            // Set all property based on the condition
-            item.all = !anyFalseValue;
-            console.log(
-              "🚀 ~ file: index.tsx:288 ~ PermissionUpdate ~ item:",
-              item,
-            );
-            return item;
-
-            // return { ...item, all: item.view && item.edit && item.delete };
+          } else if (PermmmisionName === "edit") {
+            duplicateItem = {
+              ...duplicateItem,
+              view: true,
+              edit: true,
+            };
+          } else if (PermmmisionName === "view") {
+            duplicateItem = {
+              ...duplicateItem,
+              view: true,
+            };
+          } else if (PermmmisionName === "delete") {
+            duplicateItem = {
+              ...duplicateItem,
+              view: true,
+              delete: true,
+            };
           }
+          duplicateItem[PermmmisionName] = true;
+          const propertyNames = Object.keys(duplicateItem).filter(
+            (key) => key !== "moduleName" && key !== "all",
+          );
+          const anyFalseValue = propertyNames.some(
+            (key) => duplicateItem[key] === false,
+          );
+          duplicateItem.all = !anyFalseValue;
+
+          return duplicateItem;
         } else {
-          if (PermmmisionName === "all") {
-            return {
-              ...item,
+          if (PermmmisionName === "all" || PermmmisionName === "view") {
+            duplicateItem = {
+              ...duplicateItem,
               all: false,
               view: false,
               edit: false,
               delete: false,
             };
           } else {
-            return { ...item, [PermmmisionName]: false, all: false };
+            duplicateItem = {
+              ...duplicateItem,
+              [PermmmisionName]: false,
+              all: false,
+            };
           }
         }
       }
-      return item;
+      return duplicateItem;
     });
 
     console.log(
