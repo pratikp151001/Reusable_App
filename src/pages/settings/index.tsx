@@ -4,6 +4,7 @@ import AddInfo from "../../Components/settings/AddInfo/index";
 import DynamicTable from "../../Components/settings/Table/index";
 import { MenuInfo } from "rc-menu/lib/interface";
 import ConfirmDelete from "../../Components/golbal/DeleteConfirmationModal/index";
+import { addUsersAction } from "../../redux/Slices/UserSlice";
 import {
   Button,
   Checkbox,
@@ -30,9 +31,13 @@ import preferencesData from "../../constants/PreferenceData";
 import rolesData from "../../constants/RolesData";
 import PermissionDataSource from "../../constants/PermissionData";
 import AddRoleForm from "../../Components/settings/AddRole/index";
+import { useDispatch } from "react-redux";
 // import CustomSwitch from '../../Components/settings/Switch/index'
 
 export default function Index() {
+  const dispatch = useDispatch();
+
+  //States
   const [PermissionData, setPermissionData] = useState(PermissionDataSource);
   const [UserData, setUserData] = useState(UsersData);
   const [ORGData, setORGData] = useState(OrgDataSource);
@@ -209,6 +214,7 @@ export default function Index() {
     toastText(`${settingComponent} Added Successfully`, "success");
     values.id = Math.random();
     values.status = `Disable`;
+    dispatch(addUsersAction() as any);
 
     setUserData([...UserData, values]);
     setfilteredData([...filteredData, values]);
@@ -256,12 +262,7 @@ export default function Index() {
     e: any,
     PermmmisionName: string,
   ) => {
-    console.log(
-      "🚀 ~ file: index.tsx:259 ~ Index ~ PermmmisionName:",
-      PermmmisionName,
-    );
     const PermissionUpdate = PermissionData.map((item: any, index: number) => {
-      console.log("🚀 ~ file: index.tsx:258 ~ PermissionUpdate ~ item:", item);
       if (item.moduleName === data.moduleName) {
         if (e.target.checked) {
           if (PermmmisionName === "all") {
@@ -287,10 +288,7 @@ export default function Index() {
 
             // Set all property based on the condition
             item.all = !anyFalseValue;
-            console.log(
-              "🚀 ~ file: index.tsx:288 ~ PermissionUpdate ~ item:",
-              item,
-            );
+
             return item;
 
             // return { ...item, all: item.view && item.edit && item.delete };
@@ -312,10 +310,6 @@ export default function Index() {
       return item;
     });
 
-    console.log(
-      "🚀 ~ file: index.tsx:286 ~ Index ~ PermissionUpdate:",
-      PermissionUpdate,
-    );
     setPermissionData(PermissionUpdate);
   };
 
