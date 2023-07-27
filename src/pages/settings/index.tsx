@@ -5,6 +5,7 @@ import DynamicTable from "../../Components/settings/Table/index";
 import { MenuInfo } from "rc-menu/lib/interface";
 import ConfirmDelete from "../../Components/golbal/DeleteConfirmationModal/index";
 import { RegisterUser } from "../../redux/Slices/RegisterUserSlice";
+import { addUsersAction } from "../../redux/Slices/UserSlice";
 import {
   Button,
   Checkbox,
