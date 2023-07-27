@@ -216,7 +216,7 @@ export default function Index() {
     toastText(`${settingComponent} Added Successfully`, "success");
     // values.id = Math.random();
     values.status = false;
-    values.userAdded = id
+    values.userAdded = id;
 
     console.log("🚀 ~ file: index.tsx:217 ~ onFinish ~ values:", values);
     // dispatch(addUser(values));
@@ -798,7 +798,7 @@ export default function Index() {
               </Button>
             </Space>
           }
-        // closeIcon={<CloseOutlined style={{right:'2%',position:'absolute'}}/> }
+          // closeIcon={<CloseOutlined style={{right:'2%',position:'absolute'}}/> }
         >
           <Form
             name="basic"

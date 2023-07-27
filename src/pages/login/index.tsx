@@ -38,7 +38,7 @@ export default function Login() {
   function onFinish(values: any) {
     dispatch(LoginUser(values)).then(navigate("/dashboard"));
   }
-  const onFinishFailed = (errorInfo: any) => { };
+  const onFinishFailed = (errorInfo: any) => {};
 
   return (
     <Space direction="vertical" style={{ width: "100%" }} size={[0, 48]}>

@@ -51,7 +51,6 @@ const LoginUser: any = createAsyncThunk(
   },
 );
 
-
 const usersSlice = createSlice({
   name: "users",
   initialState,
