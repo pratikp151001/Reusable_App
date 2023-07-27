@@ -32,12 +32,9 @@ export default function Login() {
   const navigate = useNavigate();
 
   function onFinish(values: any) {
-    console.log("🚀 ~ file: index.tsx:24 ~ onFinish ~ values:", values);
     navigate("/dashboard");
   }
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
+  const onFinishFailed = (errorInfo: any) => {};
 
   return (
     <Space direction="vertical" style={{ width: "100%" }} size={[0, 48]}>

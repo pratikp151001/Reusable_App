@@ -4,6 +4,7 @@ import AddInfo from "../../Components/settings/AddInfo/index";
 import DynamicTable from "../../Components/settings/Table/index";
 import { MenuInfo } from "rc-menu/lib/interface";
 import ConfirmDelete from "../../Components/golbal/DeleteConfirmationModal/index";
+import { addUser } from "../../redux/Slices/UserSlice";
 import {
   Button,
   Checkbox,
@@ -30,9 +31,15 @@ import preferencesData from "../../constants/PreferenceData";
 import rolesData from "../../constants/RolesData";
 import PermissionDataSource from "../../constants/PermissionData";
 import AddRoleForm from "../../Components/settings/AddRole/index";
+import { useDispatch, useSelector } from "react-redux";
 // import CustomSwitch from '../../Components/settings/Switch/index'
 
 export default function Index() {
+  const dispatch = useDispatch();
+
+  const { data, isLoading } = useSelector((state) => (state as any).users);
+  console.log("🚀 ~ file: index.tsx:41 ~ Index ~ data:", data);
+
   const [PermissionData, setPermissionData] = useState(PermissionDataSource);
   const [UserData, setUserData] = useState(UsersData);
   const [ORGData, setORGData] = useState(OrgDataSource);
@@ -81,12 +88,9 @@ export default function Index() {
       });
       setfilteredData(filteredData);
     }
-
-    console.log("🚀 ~ file: index.tsx:66 ~ handlefilterChange ~ e:", e);
   };
 
   const handleSidebar = (event: MenuInfo) => {
-    console.log("Event: ", event.key);
     if (event.key === "users") {
       setfilteredData(UserData);
     }
@@ -210,6 +214,7 @@ export default function Index() {
     values.id = Math.random();
     values.status = `Disable`;
 
+    dispatch(addUser(values));
     setUserData([...UserData, values]);
     setfilteredData([...filteredData, values]);
     setOpenDrawer(false);
@@ -258,10 +263,7 @@ export default function Index() {
   ) => {
     const PermissionUpdate = PermissionData.map((item: any, index: number) => {
       let duplicateItem = item;
-      console.log(
-        "🚀 ~ file: index.tsx:262 ~ PermissionUpdate ~ duplicateItem:",
-        duplicateItem,
-      );
+
       if (item.moduleName === data.moduleName) {
         if (e.target.checked) {
           if (PermmmisionName === "all") {
@@ -321,10 +323,6 @@ export default function Index() {
       return duplicateItem;
     });
 
-    console.log(
-      "🚀 ~ file: index.tsx:286 ~ Index ~ PermissionUpdate:",
-      PermissionUpdate,
-    );
     setPermissionData(PermissionUpdate);
   };
 

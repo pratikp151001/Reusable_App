@@ -18,10 +18,13 @@ import "./index.css";
 import { registerFormData } from "../../constants/RegistrationForm";
 import { Link, useNavigate } from "react-router-dom";
 import { LeftOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../redux/Slices/UserSlice";
 
 const { Title } = Typography;
 
 export default function Index() {
+  const dispatch = useDispatch();
   const contentStyle: React.CSSProperties = {
     textAlign: "center",
     minHeight: "100vh",
@@ -33,6 +36,8 @@ export default function Index() {
   const navigate = useNavigate();
 
   function onFinish(values: any) {
+    localStorage.setItem("activeUser", values.first_name);
+    dispatch(addUser(values));
     navigate("/dashboard");
   }
   const onFinishFailed = (errorInfo: any) => {

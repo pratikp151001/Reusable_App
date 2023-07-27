@@ -42,7 +42,7 @@ export default function Index() {
                 size="large"
                 gap={3}
               >
-                {<>{"TP"}</>}
+                {<>{`${localStorage.getItem("activeUser")?.charAt(0)}`}</>}
               </Avatar>
             </div>
             <div className="UserName">
@@ -54,7 +54,7 @@ export default function Index() {
                   paddingTop: "10px",
                 }}
               >
-                Thonos Peterson
+                {localStorage.getItem("activeUser")}
               </Typography>
               <Typography
                 style={{
