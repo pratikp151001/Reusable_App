@@ -5,8 +5,11 @@ import "./index.css";
 import { Image, Typography } from "antd";
 import { LoginOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Index() {
+  const { first_name } = useSelector((state) => (state as any).users.data);
+  console.log("🚀 ~ file: index.tsx:13 ~ Index ~ first_name:", first_name);
   //OpenSettting
   const navigate = useNavigate();
   const OpenSettting = () => {
@@ -42,7 +45,7 @@ export default function Index() {
                 size="large"
                 gap={3}
               >
-                {<>{`${localStorage.getItem("activeUser")?.charAt(0)}`}</>}
+                {<>{first_name.charAt(0)}</>}
               </Avatar>
             </div>
             <div className="UserName">
@@ -54,7 +57,7 @@ export default function Index() {
                   paddingTop: "10px",
                 }}
               >
-                {localStorage.getItem("activeUser")}
+                {first_name}
               </Typography>
               <Typography
                 style={{
@@ -77,6 +80,7 @@ export default function Index() {
                     </div> */}
             <LoginOutlined
               onClick={() => {
+                localStorage.removeItem("activeUser");
                 navigate("/");
               }}
               style={{ fontSize: "25px", marginRight: "10px" }}

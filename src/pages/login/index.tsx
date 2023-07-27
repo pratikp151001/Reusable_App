@@ -18,10 +18,14 @@ import { Content } from "antd/es/layout/layout";
 import "./index.css";
 import loginFormData from "../../constants/LoginForm";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { LoginUser } from "../../redux/Slices/RegisterUserSlice";
 
 const { Title, Text } = Typography;
 
 export default function Login() {
+  const dispatch = useDispatch();
+
   const contentStyle: React.CSSProperties = {
     textAlign: "center",
     minHeight: "100vh",
@@ -32,9 +36,9 @@ export default function Login() {
   const navigate = useNavigate();
 
   function onFinish(values: any) {
-    navigate("/dashboard");
+    dispatch(LoginUser(values)).then(navigate("/dashboard"));
   }
-  const onFinishFailed = (errorInfo: any) => {};
+  const onFinishFailed = (errorInfo: any) => { };
 
   return (
     <Space direction="vertical" style={{ width: "100%" }} size={[0, 48]}>

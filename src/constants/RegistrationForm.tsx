@@ -113,7 +113,8 @@ export const registerFormData = [
     rules: [
       ({ getFieldValue }: any) => ({
         validator() {
-          const re = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+          const re =
+            /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&+=!])(?!.*\s).{8,16}$/;
           if (re.test(getFieldValue("password"))) {
             return Promise.resolve();
           } else {

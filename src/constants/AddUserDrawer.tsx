@@ -1,9 +1,9 @@
 export const AddUserDrawerBody = [
   {
     title: "First Name",
-    id: "fistName",
+    id: "first_name",
     type: "text",
-    name: "fistName",
+    name: "first_name",
     defaultValue: "",
     errorMessage: "Please enter the first name",
     placeholder: "Enter your first name",
@@ -16,9 +16,9 @@ export const AddUserDrawerBody = [
   },
   {
     title: "Last Name",
-    id: "lastName",
+    id: "last_name",
     type: "text",
-    name: "lastName",
+    name: "last_name",
     defaultValue: "",
     errorMessage: "Please enter the last name",
     placeholder: "Enter your last name",
@@ -52,9 +52,9 @@ export const AddUserDrawerBody = [
   },
   {
     title: "Phone Number",
-    id: "phoneNumber",
+    id: "phone",
     type: "number",
-    name: "phoneNumber",
+    name: "phone",
     defaultValue: "",
     errorMessage: "Please enter the phone number",
     placeholder: "Enter your phone number",
@@ -62,7 +62,7 @@ export const AddUserDrawerBody = [
       ({ getFieldValue }: any) => ({
         validator() {
           const re = /^\d{10}$/;
-          if (re.test(getFieldValue("phoneNumber"))) {
+          if (re.test(getFieldValue("phone"))) {
             return Promise.resolve();
           } else {
             return Promise.reject(new Error("Please Enter Valid phoneNumber"));

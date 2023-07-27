@@ -4,7 +4,7 @@ import AddInfo from "../../Components/settings/AddInfo/index";
 import DynamicTable from "../../Components/settings/Table/index";
 import { MenuInfo } from "rc-menu/lib/interface";
 import ConfirmDelete from "../../Components/golbal/DeleteConfirmationModal/index";
-import { addUser } from "../../redux/Slices/UserSlice";
+import { RegisterUser } from "../../redux/Slices/RegisterUserSlice";
 import {
   Button,
   Checkbox,
@@ -35,6 +35,8 @@ import { useDispatch, useSelector } from "react-redux";
 // import CustomSwitch from '../../Components/settings/Switch/index'
 
 export default function Index() {
+  const { id } = useSelector((state) => (state as any).users.data);
+
   const dispatch = useDispatch();
 
   const { data, isLoading } = useSelector((state) => (state as any).users);
@@ -66,7 +68,7 @@ export default function Index() {
       const filteredData = UserData.filter((singleRecord: any) => {
         if (
           singleRecord.status === e &&
-          singleRecord.fistName.includes(searchValue)
+          singleRecord.first_name.includes(searchValue)
         ) {
           return singleRecord;
         } else {
@@ -127,14 +129,14 @@ export default function Index() {
         if (appiledFilter) {
           if (
             singleRecord.status === appiledFilter &&
-            singleRecord.fistName.includes(value)
+            singleRecord.first_name.includes(value)
           ) {
             return singleRecord;
           } else {
             return null;
           }
         } else {
-          if (singleRecord.fistName.includes(value)) {
+          if (singleRecord.first_name.includes(value)) {
             return singleRecord;
           } else {
             return null;
@@ -211,10 +213,12 @@ export default function Index() {
   function onFinish(values: any): void {
     console.log("🚀 ~ file: index.tsx:27 ~ onFinish ~ values:", values);
     toastText(`${settingComponent} Added Successfully`, "success");
-    values.id = Math.random();
-    values.status = `Disable`;
+    // values.id = Math.random();
+    values.status = false;
+    values.userAdded = id
 
-    dispatch(addUser(values));
+    console.log("🚀 ~ file: index.tsx:217 ~ onFinish ~ values:", values);
+    // dispatch(addUser(values));
     setUserData([...UserData, values]);
     setfilteredData([...filteredData, values]);
     setOpenDrawer(false);
@@ -238,14 +242,14 @@ export default function Index() {
       if (appiledFilter) {
         if (
           singleRecord.status === appiledFilter &&
-          singleRecord.fistName.includes(searchValue)
+          singleRecord.first_name.includes(searchValue)
         ) {
           return singleRecord;
         } else {
           return null;
         }
       } else {
-        if (singleRecord.fistName.includes(searchValue)) {
+        if (singleRecord.first_name.includes(searchValue)) {
           return singleRecord;
         } else {
           return null;
@@ -329,10 +333,10 @@ export default function Index() {
   const userColumns = [
     {
       title: "Name",
-      dataIndex: "fistName",
-      key: "fistName",
+      dataIndex: "first_name",
+      key: "first_name",
       sorter: (a: any, b: any) => {
-        return a.fistName.length - b.fistName.length;
+        return a.first_name.length - b.first_name.length;
       },
       // sortDirections: ['descend'],
     },
@@ -793,7 +797,7 @@ export default function Index() {
               </Button>
             </Space>
           }
-          // closeIcon={<CloseOutlined style={{right:'2%',position:'absolute'}}/> }
+        // closeIcon={<CloseOutlined style={{right:'2%',position:'absolute'}}/> }
         >
           <Form
             name="basic"
