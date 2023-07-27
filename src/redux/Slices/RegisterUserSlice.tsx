@@ -76,10 +76,7 @@ const usersSlice = createSlice({
 
     builder.addCase(LoginUser.fulfilled, (state: any, action: any) => {
       state.data = action.payload;
-      console.log(
-        "🚀 ~ file: RegisterUserSlice.tsx:79 ~ builder.addCase ~ action.payload:",
-        action.payload,
-      );
+
       state.isLoading = false;
       localStorage.setItem("activeUser", action.payload.first_name);
     });

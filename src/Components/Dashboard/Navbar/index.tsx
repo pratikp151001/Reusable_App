@@ -1,6 +1,6 @@
 import { Avatar, Col, Row } from "antd";
 import { Header } from "antd/es/layout/layout";
-import React from "react";
+import React, { useEffect } from "react";
 import "./index.css";
 import { Image, Typography } from "antd";
 import { LoginOutlined } from "@ant-design/icons";
@@ -15,6 +15,7 @@ export default function Index() {
   const OpenSettting = () => {
     navigate("/settings");
   };
+  useEffect(() => {}, []);
   return (
     <Header style={{ backgroundColor: "#FFF" }}>
       <Row justify={"space-between"}>
