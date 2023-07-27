@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import UsersData from "../../constants/userData";
 
 const initialState: any = {
   data: null,
@@ -77,7 +76,12 @@ const usersSlice = createSlice({
 
     builder.addCase(LoginUser.fulfilled, (state: any, action: any) => {
       state.data = action.payload;
+      console.log(
+        "🚀 ~ file: RegisterUserSlice.tsx:79 ~ builder.addCase ~ action.payload:",
+        action.payload,
+      );
       state.isLoading = false;
+      localStorage.setItem("activeUser", action.payload.first_name);
     });
     builder.addCase(LoginUser.rejected, (state: any, action: any) => {
       state.error = action.payload;

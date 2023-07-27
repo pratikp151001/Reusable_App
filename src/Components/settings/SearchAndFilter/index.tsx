@@ -35,7 +35,7 @@ export default function index(props: any) {
           <Col>
             <Space>
               <Input
-                placeholder="Search user"
+                placeholder={`Search ${settingComponent}`}
                 suffix={<SearchOutlined />}
                 onChange={performSearchHandler}
                 value={searchValue}

@@ -38,7 +38,6 @@ export default function Index() {
   function onFinish(values: any) {
     values.superAdmin = true;
     values.status = true;
-
     dispatch(RegisterUser(values)).then(navigate("/login"));
     // navigate("/dashboard");
   }
