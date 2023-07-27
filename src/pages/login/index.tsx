@@ -36,7 +36,9 @@ export default function Login() {
   const navigate = useNavigate();
 
   function onFinish(values: any) {
-    dispatch(LoginUser(values)).then(navigate("/dashboard"));
+    dispatch(LoginUser(values)).then((response: any) => {
+      navigate("/dashboard");
+    });
   }
   const onFinishFailed = (errorInfo: any) => {};
 

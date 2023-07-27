@@ -1,6 +1,6 @@
 import { Avatar, Col, Row } from "antd";
 import { Header } from "antd/es/layout/layout";
-import React from "react";
+import React, { useEffect } from "react";
 import "./index.css";
 import { Image, Typography } from "antd";
 import { LoginOutlined } from "@ant-design/icons";
@@ -8,13 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function Index() {
-  const { first_name } = useSelector((state) => (state as any).users.data);
+  const { first_name } = useSelector((state) => (state as any)?.users?.data);
   console.log("🚀 ~ file: index.tsx:13 ~ Index ~ first_name:", first_name);
   //OpenSettting
   const navigate = useNavigate();
   const OpenSettting = () => {
     navigate("/settings");
   };
+  useEffect(() => {}, []);
   return (
     <Header style={{ backgroundColor: "#FFF" }}>
       <Row justify={"space-between"}>
