@@ -20,6 +20,7 @@ import loginFormData from "../../constants/LoginForm";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { LoginUser } from "../../redux/Slices/RegisterUserSlice";
+import { toastText } from "../../utils/DisplayToast";
 
 const { Title, Text } = Typography;
 
@@ -41,7 +42,10 @@ export default function Login() {
       .then((response: any) => {
         console.log("🚀 ~ file: index.tsx:40 ~ dispatch ~ response:", response);
         if (response.data?.message === "Logged in successfully") {
+          toastText("Login successful", "success");
           navigate("/dashboard");
+        } else {
+          toastText("Fail to Login", "error");
         }
       });
   }

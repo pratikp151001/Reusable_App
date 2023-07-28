@@ -11,9 +11,10 @@ const initialState: any = {
 const addUser: any = createAsyncThunk(
   "/addUser",
   async (values: any, thunkAPI) => {
+    console.log("🚀 ~ file: AddUserSlice.tsx:14 ~ values:", values);
     try {
       const response = await axios.post(
-        "http://localhost:2221/api/login",
+        "http://localhost:2221/api/postUser",
         values,
       );
       console.log("🚀 ~ file: UserSlice.tsx:18 ~ response:", response);
@@ -51,4 +52,4 @@ const addUsersSlice = createSlice({
   },
 });
 export { addUser };
-export default { addUsersSlice };
+export default addUsersSlice;

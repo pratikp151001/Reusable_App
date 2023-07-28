@@ -33,6 +33,7 @@ import rolesData from "../../constants/RolesData";
 import PermissionDataSource from "../../constants/PermissionData";
 import AddRoleForm from "../../Components/settings/AddRole/index";
 import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../redux/Slices/AddUserSlice";
 // import CustomSwitch from '../../Components/settings/Switch/index'
 
 export default function Index() {
@@ -216,12 +217,13 @@ export default function Index() {
     toastText(`${settingComponent} Added Successfully`, "success");
     // values.id = Math.random();
     values.status = false;
-    values.userAdded = id;
+    values.userAddedBy = id;
+    dispatch(addUser(values));
 
-    console.log("🚀 ~ file: index.tsx:217 ~ onFinish ~ values:", values);
-    // dispatch(addUser(values));
-    setUserData([...UserData, values]);
-    setfilteredData([...filteredData, values]);
+    // console.log("🚀 ~ file: index.tsx:217 ~ onFinish ~ values:", values);
+    // // dispatch(addUser(values));
+    // setUserData([...UserData, values]);
+    // setfilteredData([...filteredData, values]);
     setOpenDrawer(false);
   }
 

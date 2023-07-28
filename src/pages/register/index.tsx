@@ -20,6 +20,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { LeftOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { RegisterUser } from "../../redux/Slices/RegisterUserSlice";
+import { toastText } from "../../utils/DisplayToast";
 
 const { Title } = Typography;
 
@@ -44,6 +45,9 @@ export default function Index() {
         console.log("🚀 ~ file: index.tsx:44 ~ .then ~ response:", response);
         if (response.status == 200) {
           navigate("/login");
+          toastText("Registration successful", "success");
+        } else {
+          toastText("Fail to Register", "error");
         }
       });
     // navigate("/dashboard");
