@@ -36,9 +36,14 @@ export default function Login() {
   const navigate = useNavigate();
 
   function onFinish(values: any) {
-    dispatch(LoginUser(values)).then((response: any) => {
-      navigate("/dashboard");
-    });
+    dispatch(LoginUser(values))
+      .unwrap()
+      .then((response: any) => {
+        console.log("🚀 ~ file: index.tsx:40 ~ dispatch ~ response:", response);
+        if (response.data?.message === "Logged in successfully") {
+          navigate("/dashboard");
+        }
+      });
   }
   const onFinishFailed = (errorInfo: any) => {};
 

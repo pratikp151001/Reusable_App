@@ -11,13 +11,18 @@ const initialState: any = {
 const RegisterUser: any = createAsyncThunk(
   "/addUser",
   async (values: any, thunkAPI) => {
+    console.log("🚀 ~ file: RegisterUserSlice.tsx:14 ~ values:", values);
     try {
       const response = await axios.post(
         "http://localhost:2221/api/register",
         values,
       );
       console.log("🚀 ~ file: UserSlice.tsx:18 ~ response:", response);
-      return response.data.data;
+      console.log(
+        "🚀 ~ file: RegisterUserSlice.tsx:21 ~ response.data.data:",
+        response.data.data,
+      );
+      return response;
 
       // return UsersData;
     } catch (error: any) {
@@ -38,7 +43,7 @@ const LoginUser: any = createAsyncThunk(
         values,
       );
       console.log("🚀 ~ file: UserSlice.tsx:18 ~ response:", response);
-      return response.data.data.checkCredentials;
+      return response;
 
       // return UsersData;
     } catch (error: any) {
@@ -62,7 +67,11 @@ const usersSlice = createSlice({
     });
 
     builder.addCase(RegisterUser.fulfilled, (state: any, action: any) => {
-      state.data = action.payload;
+      console.log(
+        "🚀 ~ file: RegisterUserSlice.tsx:67 ~ builder.addCase ~ action.payload:",
+        action.payload,
+      );
+      state.data = action.payload.data.data;
       state.isLoading = false;
     });
     builder.addCase(RegisterUser.rejected, (state: any, action: any) => {
@@ -75,7 +84,11 @@ const usersSlice = createSlice({
     });
 
     builder.addCase(LoginUser.fulfilled, (state: any, action: any) => {
-      state.data = action.payload;
+      console.log(
+        "🚀 ~ file: RegisterUserSlice.tsx:88 ~ builder.addCase ~ action.payload:",
+        action.payload,
+      );
+      state.data = action.payload.data?.data?.checkCredentials;
 
       state.isLoading = false;
       localStorage.setItem("activeUser", action.payload.first_name);

@@ -38,7 +38,14 @@ export default function Index() {
   function onFinish(values: any) {
     values.superAdmin = true;
     values.status = true;
-    dispatch(RegisterUser(values)).then(navigate("/login"));
+    dispatch(RegisterUser(values))
+      .unwrap()
+      .then((response: any) => {
+        console.log("🚀 ~ file: index.tsx:44 ~ .then ~ response:", response);
+        if (response.status == 200) {
+          navigate("/login");
+        }
+      });
     // navigate("/dashboard");
   }
   const onFinishFailed = (errorInfo: any) => {
